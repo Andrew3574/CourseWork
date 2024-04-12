@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,9 +30,10 @@ namespace FurnitureDBLibrary.Models
         public int FurnitureId { get { return _furnitureId; } }
         public string FurnitureName { get {  return _furnitureName; } } 
         public decimal FurniturePrice { get {  return _furniturePrice; } }  
-        public int FurnitureQuantity { get {  return _furnitureQuantity; } }    
+        public int FurnitureQuantity { get { return _furnitureQuantity; } set { _furnitureQuantity = value; } }    
         public short FurnitureTypeId { get {  return _furnitureTypeId; } } 
         public short FurnitureManufacturerId { get { return _furnitureManufacturerId; } }
     
+        
     }
 }

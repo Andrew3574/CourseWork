@@ -96,24 +96,23 @@
     <Compile Include="DataAccess\FurnitureSetItemController.cs" />
     <Compile Include="DataAccess\FurnitureTypeController.cs" />
     <Compile Include="DataAccess\ManufacturerController.cs" />
+    <Compile Include="DataAccess\UserController.cs" />
     <Compile Include="DBConnection.cs" />
-    <Compile Include="Models\Admin.cs" />
+    <Compile Include="UserModels\Admin.cs" />
     <Compile Include="Models\Furniture.cs" />
     <Compile Include="Models\FurnitureSet.cs" />
     <Compile Include="Models\FurnitureSetItem.cs" />
     <Compile Include="Models\FurnitureType.cs" />
-    <Compile Include="Models\Manager.cs" />
+    <Compile Include="UserModels\Manager.cs" />
     <Compile Include="Models\Manufacturer.cs" />
-    <Compile Include="Models\Salesman.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="UserModels\Salesman.cs" />
+    <Compile Include="UserModels\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UserModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

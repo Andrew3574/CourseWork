@@ -23,10 +23,10 @@ namespace FurnitureDBLibrary.DataAccess
                 while(reader.Read())
                 {
                     furnitureSets.Add(new FurnitureSet(reader.GetInt32(0),reader.GetString(1)));
-                }
-                reader.Close();
+                }                
             }
 
+            reader.Close();
             return furnitureSets;       
         }
 

@@ -23,10 +23,10 @@ namespace FurnitureDBLibrary.DataAccess
                 while(reader.Read())
                 {
                     furnitureSetItems.Add(new FurnitureSetItem(reader.GetInt32(0),reader.GetInt32(1),reader.GetInt32(2)));
-                }
-                reader.Close();
+                }                
             }
 
+            reader.Close();
             return furnitureSetItems;
         }
 
@@ -54,5 +54,19 @@ namespace FurnitureDBLibrary.DataAccess
 
         }
 
+        /*public string[] GetCurrentFurnitureSetInfo(FurnitureSet currentFurnitureSet, List<Furniture> furnitures, List<Manufacturer> manufacturers, List<FurnitureType> furnitureTypes)
+        {
+            string[] furn = new string[5];
+            var info = from furniture in furnitures
+                       where furniture.FurnitureName == currentFurniture.FurnitureName
+                       join manufact in manufacturers on furniture.FurnitureManufacturerId equals manufact.ManufacturerId
+                       join type in furnitureTypes on furniture.FurnitureTypeId equals type.TypeId
+                       select new { furniture.FurnitureName, RetailPrice = (furniture.FurniturePrice + furniture.FurniturePrice * type.TypeMarkup + furniture.FurniturePrice * manufact.ManufacturerMarkup), furniture.FurnitureQuantity, type.TypeName, manufact.ManufacturerName };
+
+            var curFurniture = info.First();
+            furn = $"{curFurniture.FurnitureName}/{curFurniture.RetailPrice:#.00}/{curFurniture.ManufacturerName}/{curFurniture.TypeName}/{curFurniture.FurnitureQuantity}".Split('/');
+
+            return furn;
+        }*/
     }
 }
