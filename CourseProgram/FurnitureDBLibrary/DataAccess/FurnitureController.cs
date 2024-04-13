@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FurnitureDBLibrary.DataAccess
 {
-    public class FurnitureController :DBObjectController<Furniture>
+    public class FurnitureController : DBObjectController<Furniture>
     {
         public FurnitureController() : base() { }
 
@@ -33,7 +33,7 @@ namespace FurnitureDBLibrary.DataAccess
 
         public override void Create(Furniture model)
         {
-            string command = $"insert into furnitures values ({model.FurnitureName},{model.FurniturePrice},{model.FurnitureQuantity},{model.FurnitureTypeId},{model.FurnitureManufacturerId});";
+            string command = $"insert into furnitures(furnitureid,furniturename,furnitureprice,furniturequantity,furnituretypeid,manufacturerid) values ({model.FurnitureId},'{model.FurnitureName}',{model.FurniturePrice},{model.FurnitureQuantity},{model.FurnitureTypeId},{model.FurnitureManufacturerId});";
             _command.CommandText = command;
             _command.ExecuteNonQuery();
         

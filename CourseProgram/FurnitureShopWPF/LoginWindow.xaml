@@ -13,7 +13,7 @@
 
         <Label Content="LOGIN" FontSize="20" FontStyle="Oblique" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0" Width="74" Height="44"></Label>
         <TextBox x:Name="UserNameTextBox" Text="" HorizontalAlignment="Center" VerticalAlignment="Top" Width="128" Height="24" Margin="0,74,0,0" />
-        <TextBox x:Name="PasswordTextBox" Text="" HorizontalAlignment="Center" VerticalAlignment="Top"  Width="128" Height="24" Margin="0,120,0,0"/>
+        <PasswordBox x:Name="Passwordbox" PasswordChar="*" HorizontalAlignment="Center" VerticalAlignment="Top"  Width="128" Height="24" Margin="0,120,0,0"/>
         <Button x:Name="EnterButton" Content="Войти"  HorizontalAlignment="Center" VerticalAlignment="Top" Height="33" Margin="0,189,0,0" Width="90" Click="EnterButton_Click"/>
         <Button x:Name="GuestEnterButton" Content="Гостевой вход" HorizontalAlignment="Center" VerticalAlignment="Top" Height="33" Margin="0,240,0,0" Width="90" Click="GuestEnterButton_Click"></Button>
 

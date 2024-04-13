@@ -25,6 +25,7 @@ namespace FurnitureShopWPF
     {
         private User _user;
         private Furniture _currentFurniture;
+        private FurnitureSet _currentFurnitureSet;
         private FurnitureSetItem _currentFurnitureSetItem;
         private List<Furniture> _furnitures;
         private List<Manufacturer> _manufacturers;
@@ -45,10 +46,33 @@ namespace FurnitureShopWPF
             {
                 _user = user;
                 InitializeComponent();
+                ManufacturerComboBox.ItemsSource = _manufacturers;
+                FurnitureTypesComboBox.ItemsSource = _furnitureTypes;
+                switch (_user.RoleId)
+                {
+                    case 1:
+                        InitializeAdminInterface();
+                        InitializeManagerInterface();
+                        InitializeSalesmanInterface();
+                        break;
+
+                    case 2:
+                        InitializeManagerInterface();
+                        InitializeSalesmanInterface();
+                        break;
+
+                    case 3:
+                        InitializeSalesmanInterface();
+                        break;
+
+                    default:
+                        throw new Exception();
+                }
+                FurnitureSetListBox.Visibility = Visibility.Hidden;
+                FurnitureSetStackPanel.Visibility = Visibility.Hidden;
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.Message);
             }
         }
@@ -56,16 +80,20 @@ namespace FurnitureShopWPF
         public MainWindow()
         {
             InitializeComponent();
+            ManufacturerComboBox.ItemsSource = _manufacturerController.Read();
+            FurnitureTypesComboBox.ItemsSource = _furnitureTypeController.Read();
+            FurnitureSetListBox.Visibility = Visibility.Hidden;
+            FurnitureSetStackPanel.Visibility = Visibility.Hidden;
         }
 
-        public void MainDataListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public void FurnitureListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (BuyButton.IsEnabled == false)
-                BuyButton.IsEnabled = true;
+            if (BuyFurnitureButton.IsEnabled == false)
+                BuyFurnitureButton.IsEnabled = true;
 
-            if (MainDataListBox.SelectedItem != null && MainDataListBox.SelectedItem is Furniture == true)
+            if (FurnitureListBox.SelectedItem != null && FurnitureListBox.SelectedItem is Furniture == true)
             {
-                _currentFurniture = (Furniture)MainDataListBox.Items[MainDataListBox.SelectedIndex];
+                _currentFurniture = (Furniture)FurnitureListBox.Items[FurnitureListBox.SelectedIndex];
                 var curFurniture = _furnitureController.GetCurrentFurnitureInfo(_currentFurniture, _furnitures, _manufacturers, _furnitureTypes);
                 
                 NameTextBox.Text = curFurniture[0];
@@ -74,13 +102,6 @@ namespace FurnitureShopWPF
                 TypeTextBox.Text = curFurniture[3];
                 QuantityTextBox.Text = curFurniture[4];
 
-            }
-            else if(MainDataListBox.SelectedItem != null && MainDataListBox.SelectedItem is FurnitureSetItem == true)
-            {
-                //вывод в левый столбец FurnitureSet, а справа - информация о FurnitureSetItem'ах
-
-                /*_currentFurnitureSetItem = (FurnitureSetItem)MainDataListBox.Items[MainDataListBox.SelectedIndex];
-                var _curSetItem = _furnitureSetItemController.GetCurrentFurnitureSetInfo*/
             }
         }
 
@@ -94,6 +115,8 @@ namespace FurnitureShopWPF
                     QuantityTextBox.Text = _currentFurniture.FurnitureQuantity--.ToString();
                     _furnitureController.Update(_currentFurniture);
                 }
+                else
+                    throw new Exception();
             }
             catch (Exception)
             {
@@ -113,23 +136,113 @@ namespace FurnitureShopWPF
 
         private void FurnitureButton_Click(object sender, RoutedEventArgs e)
         {
+            FurnitureListBox.Visibility = Visibility.Visible;
+            FurnitureStackPanel.Visibility = Visibility.Visible;
+            FurnitureSetListBox.Visibility = Visibility.Hidden;
+            FurnitureSetStackPanel.Visibility = Visibility.Hidden;
+
             _furnitures = _furnitureController.Read();
             _manufacturers = _manufacturerController.Read();
             _furnitureTypes = _furnitureTypeController.Read();
 
-            MainDataListBox.ItemsSource = _furnitures;
             FurnitureButton.IsEnabled = false;
             FurnitureSetButton.IsEnabled = true;
+
+            FurnitureListBox.ItemsSource = _furnitures;
+
+            
         }
 
         private void FurnitureSetButton_Click(object sender, RoutedEventArgs e)
         {
+            FurnitureSetListBox.Visibility = Visibility.Visible;
+            FurnitureSetStackPanel.Visibility = Visibility.Visible;
+            FurnitureListBox.Visibility = Visibility.Hidden;
+            FurnitureStackPanel.Visibility = Visibility.Hidden;
+            BuyFurnitureButton.IsEnabled = false;
+
             _furnitureSets = _furnitureSetController.Read();
             _furnitureSetItems = _furnitureSetItemController.Read();
 
-            MainDataListBox.ItemsSource = _furnitureSetItems;
             FurnitureButton.IsEnabled = true;
-            FurnitureSetButton.IsEnabled = false;
+            FurnitureSetButton.IsEnabled = false;           
+
+            FurnitureSetListBox.ItemsSource = _furnitureSets;
+
+            
+        }
+
+        private void FurnitureSetListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (BuyFurnitureSetButton.IsEnabled == false)
+                BuyFurnitureSetButton.IsEnabled = true;
+
+            if (FurnitureSetListBox.SelectedItem != null && FurnitureSetListBox.SelectedItem is FurnitureSet == true)
+            {
+                _currentFurnitureSet = (FurnitureSet)FurnitureSetListBox.Items[FurnitureSetListBox.SelectedIndex];
+                var curSet = _furnitureSetController.GetInfo(_currentFurnitureSet,_furnitureSetItems,_furnitures);
+
+                SetItemNameTextBlock.Text = curSet;
+
+
+            }
+        }
+
+        private void BuySetButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //foreach()
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private void InitializeAdminInterface()
+        {
+
+        }
+
+        private void InitializeManagerInterface()
+        {
+
+        }
+
+        private void InitializeSalesmanInterface()
+        {
+
+        }
+
+        private void AddFurnitureButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+               
+                int furnId = _furnitureController.Read().Count() + 1;
+                short manufactId = Convert.ToInt16(FurnitureTypesComboBox.SelectedIndex + 1);
+                short typeId = Convert.ToInt16(ManufacturerComboBox.SelectedIndex + 1);
+
+                Furniture furniture = new Furniture
+                    (furnId,
+                    FurnitureNameTextBox.Text,
+                    Convert.ToDecimal(FurniturePriceTextBox.Text),
+                    Convert.ToInt32(FurnitureQuantityTextBox.Text),
+                    manufactId,
+                    typeId);
+                    
+
+                _furnitureController.Create(furniture);
+                
+
+            }
+            catch (Exception ex)
+            {
+                //"Ошибка ввода параметров товара!"
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

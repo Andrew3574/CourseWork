@@ -54,5 +54,24 @@ namespace FurnitureDBLibrary.DataAccess
         
         }
 
+        public string GetInfo(FurnitureSet furnitureSet, List<FurnitureSetItem> furnitureSetItems, List<Furniture> furnitures)
+        {
+            string item = "";
+            decimal sum = 0; 
+            var info = from furnitureSetItem in furnitureSetItems
+                       where furnitureSet.FurnitureSetId == furnitureSetItem.FurnitureSetId
+                       join furniture in furnitures on furnitureSetItem.FurnitureId equals furniture.FurnitureId
+                       orderby furniture.FurniturePrice
+                       select new {furnitureSet.FurnitureSetName,furniture.FurnitureName, furniture.FurniturePrice};
+
+            foreach(var text in info)
+            {
+                sum += text.FurniturePrice;
+                item += $"{text.FurnitureSetName} {text.FurnitureName} {text.FurniturePrice:#.00}\n";
+            }
+
+            return item + $"Сумма к оплате: {sum}\n";
+        }
+
     }
 }

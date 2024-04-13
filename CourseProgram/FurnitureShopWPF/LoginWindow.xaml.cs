@@ -42,7 +42,7 @@ namespace FurnitureShopWPF
         {
             try
             {
-                User currentUser = _userController.GetUser(UserNameTextBox.Text, PasswordTextBox.Text, _users);
+                User currentUser = _userController.GetUser(UserNameTextBox.Text, Passwordbox.Password, _users);
                 MainWindow mainWindow = new MainWindow(currentUser);
                 this.Close();
                 mainWindow.Show();

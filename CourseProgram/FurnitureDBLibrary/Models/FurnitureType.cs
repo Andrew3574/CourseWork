@@ -23,6 +23,9 @@ namespace FurnitureDBLibrary.Models
         public string TypeName { get { return _typeName; } }
         public decimal TypeMarkup { get { return _typeMarkup; } }
 
-        
+        public override string ToString()
+        {
+            return $"{TypeName}";
+        }
     }
 }

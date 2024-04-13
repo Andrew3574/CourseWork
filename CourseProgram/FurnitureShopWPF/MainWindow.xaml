@@ -9,39 +9,95 @@
     <Grid>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="143*"/>
-            <ColumnDefinition Width="257*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
 
-        <ListBox Grid.Column="0" BorderThickness="3" Background="GhostWhite" x:Name="MainDataListBox" Margin="0,0,2,0" SelectionChanged="MainDataListBox_SelectionChanged" >
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding Path=FurnitureName}" FontSize="14"/>
-                        <TextBlock Text="{Binding Path=FurniturePrice}"/>
+        <TabControl>
+            <TabItem Header="Главная">
+                <Grid>
+                    <ListBox x:Name="FurnitureSetListBox"  Grid.Column="0" BorderThickness="3" Background="GhostWhite" Margin="0,0,402,0" SelectionChanged="FurnitureSetListBox_SelectionChanged" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Path=FurnitureSetName}" FontSize="14"/>
+                                    <TextBlock Text="{Binding Path=FurnitureSetId}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <StackPanel x:Name="FurnitureSetStackPanel" HorizontalAlignment="Right" VerticalAlignment="Top" Background="GhostWhite" Height="239" Width="397" >
+                        <TextBlock Text="Выбранный гарнитур:" FontSize="14" FontStyle="Oblique"/>
+                        <TextBlock Text="Перечень мебели:" FontSize="14"/>
+                        <TextBlock x:Name="SetItemNameTextBlock" FontSize="14"/>
+                        <Button x:Name="BuyFurnitureSetButton" IsEnabled="False" VerticalAlignment="Bottom" HorizontalAlignment="Right" FontStyle="Oblique" Content="Приобрести" Width="111" Height="35" Click="BuySetButton_Click"/>
                     </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
 
-        <StackPanel x:Name="MainInfoStackPanel" Background="GhostWhite" Margin="0,0,0,164" Grid.Column="1">
-            <TextBlock Text="Выбранная мебель:" FontSize="14" FontStyle="Oblique"/>
-            <TextBlock Text="Модель:" FontSize="14"/>
-            <TextBlock x:Name="NameTextBox" FontSize="14"/>
-            <TextBlock Text="Цена:" FontSize="14"/>
-            <TextBlock x:Name="PriceTextBox" FontSize="14"/>
-            <TextBlock Text="Производитель:" FontSize="14"/>
-            <TextBlock x:Name="ManufacturerTextBox" FontSize="14"/>
-            <TextBlock Text="Тип мебели:" FontSize="14"/>
-            <TextBlock x:Name="TypeTextBox" FontSize="14"/>
-            <TextBlock Text="Оставшееся количество:" FontSize="14"/>
-            <TextBlock x:Name="QuantityTextBox" FontSize="14"/>
-            <Button x:Name="BuyButton" IsEnabled="False" Margin="0,0,0,100" FontStyle="Oblique" Content="Приобрести" HorizontalAlignment="Right" Width="111" Height="41" Click="BuyButton_Click"/>
-        </StackPanel>
+                    <ListBox x:Name="FurnitureListBox" Grid.Column="0" BorderThickness="3" Background="GhostWhite" Margin="0,0,402,0" SelectionChanged="FurnitureListBox_SelectionChanged" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Path=FurnitureName}" FontSize="14"/>
+                                    <TextBlock Text="{Binding Path=FurniturePrice}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
 
-        <Button x:Name="LoginWindowButton" FontStyle="Oblique" Content="Вернуться" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="1" Width="111" Height="38" Click="LoginWindow_Click"/>
-        <Button x:Name="FurnitureSetButton" FontStyle="Oblique" Content="Перечень гарнитуров" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Column="1" Width="141" Height="38" Margin="142,0,0,124" Click="FurnitureSetButton_Click" ></Button>
-        <Button x:Name="FurnitureButton" FontStyle="Oblique" Content="Перечень мебели" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Column="1" Width="125" Height="38" Margin="3,0,0,124" Click="FurnitureButton_Click" />
+                    <StackPanel x:Name="FurnitureStackPanel" HorizontalAlignment="Right" VerticalAlignment="Top" Background="GhostWhite" Width="397" >
+                        <TextBlock Text="Выбранная мебель:" FontSize="14" FontStyle="Oblique"/>
+                        <TextBlock Text="Модель:" FontSize="14"/>
+                        <TextBlock x:Name="NameTextBox" FontSize="14"/>
+                        <TextBlock Text="Цена:" FontSize="14"/>
+                        <TextBlock x:Name="PriceTextBox" FontSize="14"/>
+                        <TextBlock Text="Производитель:" FontSize="14"/>
+                        <TextBlock x:Name="ManufacturerTextBox" FontSize="14"/>
+                        <TextBlock Text="Тип мебели:" FontSize="14"/>
+                        <TextBlock x:Name="TypeTextBox" FontSize="14"/>
+                        <TextBlock Text="Оставшееся количество:" FontSize="14"/>
+                        <TextBlock x:Name="QuantityTextBox" FontSize="14"/>
+                        <Button x:Name="BuyFurnitureButton" IsEnabled="False" FontStyle="Oblique" Content="Приобрести" HorizontalAlignment="Right" Width="111" Height="34" Click="BuyButton_Click"/>
+                    </StackPanel>
+
+
+                    <Button x:Name="LoginWindowButton" FontStyle="Oblique" Content="Вернуться" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="1" Width="111" Height="38" Click="LoginWindow_Click"/>
+                    <Button x:Name="FurnitureSetButton" FontStyle="Oblique" Content="Перечень гарнитуров" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="141" Height="38" Margin="532,0,0,103" Click="FurnitureSetButton_Click" />
+                    <Button x:Name="FurnitureButton" FontStyle="Oblique" Content="Перечень мебели" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="125" Height="38" Margin="393,0,0,103" Click="FurnitureButton_Click" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="Отчеты">
+                <Grid>
+                    <TextBox x:Name="ReportTextBox" Margin="122,28,122,166"/>
+                    <Button x:Name="CreateReportButtno" Content="Отчет" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="122,266,0,0" Height="45" Width="106"/>
+                    <Button x:Name="ReportByManufacturer" Content="Отчет по производителю" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,266,0,0" Height="45" Width="158"></Button>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="Продажи">
+                <Grid>
+
+                    <StackPanel Margin="87,65,425,115" >
+                        <TextBlock Text="Название мебели" FontSize="14"/>
+                        <TextBox x:Name="FurnitureNameTextBox"/>
+                        <TextBlock Text="Производитель" FontSize="14"/>
+                        <ComboBox x:Name="ManufacturerComboBox"  HorizontalAlignment="Left" Width="110"/>
+
+                        <TextBlock Text="Цена мебели" FontSize="14"/>
+                        <TextBox x:Name="FurniturePriceTextBox" HorizontalAlignment="Left" Width="106"/>
+                        <TextBlock Text="Количество мебели" FontSize="14"/>
+                        <TextBox x:Name="FurnitureQuantityTextBox" HorizontalAlignment="Left" Width="107"/>
+                        <TextBlock Text="Тип мебели" FontSize="14"/>
+                        <ComboBox x:Name="FurnitureTypesComboBox"  HorizontalAlignment="Left" Width="110"/>
+                    </StackPanel>
+
+                    <Button x:Name="RefreshFurnitureLBButton" Content="Обновить перечень" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="612,254,0,0" Height="37" Width="156"/>
+                    <Button x:Name="DeleteFurnitureButton" Content="Убрать позицию" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="612,0,0,182" Height="37" Width="156"/>
+                    <Button x:Name="UpdateFurnitureButton" Content="Редактировать позицию" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="612,0,0,238" Height="37" Width="156"/>
+                    <Button x:Name="AddFurnitureButton" Content="Добавить позицию" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="612,0,0,295" Height="37" Width="156" Click="AddFurnitureButton_Click"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
 
     </Grid>
 </Window>

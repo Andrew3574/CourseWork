@@ -48,25 +48,11 @@ namespace FurnitureDBLibrary.DataAccess
 
         public override void Update(FurnitureSetItem model)
         {
-            string command = $"update furnituresetitems set furnituresetitemid = {model.SetItemId}, furnituresetid = {model.FurnitureSetId}, furnitureid = {model.FurnitureId} where furnituresetitemId = {model.SetItemId};";
+            string command = $"update furnituresetitems set furnituresetid = {model.FurnitureSetId}, furnitureid = {model.FurnitureId} where furnituresetitemId = {model.SetItemId};";
             _command.CommandText = command;
             _command.ExecuteNonQuery();
 
         }
 
-        /*public string[] GetCurrentFurnitureSetInfo(FurnitureSet currentFurnitureSet, List<Furniture> furnitures, List<Manufacturer> manufacturers, List<FurnitureType> furnitureTypes)
-        {
-            string[] furn = new string[5];
-            var info = from furniture in furnitures
-                       where furniture.FurnitureName == currentFurniture.FurnitureName
-                       join manufact in manufacturers on furniture.FurnitureManufacturerId equals manufact.ManufacturerId
-                       join type in furnitureTypes on furniture.FurnitureTypeId equals type.TypeId
-                       select new { furniture.FurnitureName, RetailPrice = (furniture.FurniturePrice + furniture.FurniturePrice * type.TypeMarkup + furniture.FurniturePrice * manufact.ManufacturerMarkup), furniture.FurnitureQuantity, type.TypeName, manufact.ManufacturerName };
-
-            var curFurniture = info.First();
-            furn = $"{curFurniture.FurnitureName}/{curFurniture.RetailPrice:#.00}/{curFurniture.ManufacturerName}/{curFurniture.TypeName}/{curFurniture.FurnitureQuantity}".Split('/');
-
-            return furn;
-        }*/
     }
 }

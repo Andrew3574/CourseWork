@@ -34,7 +34,7 @@ namespace FurnitureDBLibrary.DataAccess
                             users.Add(new Manager(reader.GetInt32(0), 3, reader.GetString(2), reader.GetString(3)));
                             break;
                         default:
-                            throw new Exception("оль не существует");
+                            throw new Exception("Роль не существует");
                     }
                 }       
             }
