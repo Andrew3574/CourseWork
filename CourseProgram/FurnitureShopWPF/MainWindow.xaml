@@ -13,7 +13,7 @@
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
 
-        <TabControl>
+        <TabControl SelectionChanged="TabControl_SelectionChanged">
             <TabItem Header="Главная">
                 <Grid>
                     <ListBox x:Name="FurnitureSetListBox"  Grid.Column="0" BorderThickness="3" Background="GhostWhite" Margin="0,0,402,0" SelectionChanged="FurnitureSetListBox_SelectionChanged" >
@@ -68,8 +68,8 @@
             </TabItem>
             <TabItem Header="Отчеты">
                 <Grid>
-                    <TextBox x:Name="ReportTextBox" Margin="122,28,122,166"/>
-                    <Button x:Name="CreateReportButtno" Content="Отчет" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="122,266,0,0" Height="45" Width="106"/>
+                    <ListBox x:Name="ReportListBox" Margin="122,28,122,166"/>
+                    <Button x:Name="CreateReportButton" Content="Отчет" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="122,266,0,0" Height="45" Width="106" Click="CreateReportButton_Click"/>
                     <Button x:Name="ReportByManufacturer" Content="Отчет по производителю" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,266,0,0" Height="45" Width="158"></Button>
 
                 </Grid>
@@ -91,9 +91,9 @@
                         <ComboBox x:Name="FurnitureTypesComboBox"  HorizontalAlignment="Left" Width="110"/>
                     </StackPanel>
 
-                    <Button x:Name="RefreshFurnitureLBButton" Content="Обновить перечень" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="612,254,0,0" Height="37" Width="156"/>
-                    <Button x:Name="DeleteFurnitureButton" Content="Убрать позицию" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="612,0,0,182" Height="37" Width="156"/>
-                    <Button x:Name="UpdateFurnitureButton" Content="Редактировать позицию" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="612,0,0,238" Height="37" Width="156"/>
+                    <Button x:Name="RefreshFurnitureLBButton" Content="Обновить перечень" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="612,254,0,0" Height="37" Width="156" Click="RefreshFurnitureLBButton_Click"/>
+                    <Button x:Name="DeleteFurnitureButton" Content="Убрать позицию" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="612,0,0,182" Height="37" Width="156" Click="DeleteFurnitureButton_Click"/>
+                    <Button x:Name="UpdateFurnitureButton" Content="Редактировать позицию" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="612,0,0,238" Height="37" Width="156" Click="UpdateFurnitureButton_Click"/>
                     <Button x:Name="AddFurnitureButton" Content="Добавить позицию" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="612,0,0,295" Height="37" Width="156" Click="AddFurnitureButton_Click"/>
                 </Grid>
             </TabItem>

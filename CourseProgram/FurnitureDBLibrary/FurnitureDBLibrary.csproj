@@ -96,8 +96,10 @@
     <Compile Include="DataAccess\FurnitureSetItemController.cs" />
     <Compile Include="DataAccess\FurnitureTypeController.cs" />
     <Compile Include="DataAccess\ManufacturerController.cs" />
+    <Compile Include="DataAccess\SaleController.cs" />
     <Compile Include="DataAccess\UserController.cs" />
     <Compile Include="DBConnection.cs" />
+    <Compile Include="Models\Sale.cs" />
     <Compile Include="UserModels\Admin.cs" />
     <Compile Include="Models\Furniture.cs" />
     <Compile Include="Models\FurnitureSet.cs" />
