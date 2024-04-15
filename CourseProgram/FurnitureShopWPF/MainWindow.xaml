@@ -9,12 +9,13 @@
     <Grid>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="9*"/>
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
 
-        <TabControl SelectionChanged="TabControl_SelectionChanged">
-            <TabItem Header="Главная">
+        <TabControl Grid.ColumnSpan="2" SelectionChanged="TabControl_SelectionChanged" >
+            <TabItem Header="Главная" x:Name="MainTabItem">
                 <Grid>
                     <ListBox x:Name="FurnitureSetListBox"  Grid.Column="0" BorderThickness="3" Background="GhostWhite" Margin="0,0,402,0" SelectionChanged="FurnitureSetListBox_SelectionChanged" >
                         <ListBox.ItemTemplate>
@@ -57,7 +58,7 @@
                         <TextBlock x:Name="TypeTextBox" FontSize="14"/>
                         <TextBlock Text="Оставшееся количество:" FontSize="14"/>
                         <TextBlock x:Name="QuantityTextBox" FontSize="14"/>
-                        <Button x:Name="BuyFurnitureButton" IsEnabled="False" FontStyle="Oblique" Content="Приобрести" HorizontalAlignment="Right" Width="111" Height="34" Click="BuyButton_Click"/>
+                        <Button x:Name="BuyFurnitureButton" IsEnabled="False" FontStyle="Oblique" Content="Приобрести" HorizontalAlignment="Right" Width="109" Height="34" Click="BuyButton_Click"/>
                     </StackPanel>
 
 
@@ -66,15 +67,16 @@
                     <Button x:Name="FurnitureButton" FontStyle="Oblique" Content="Перечень мебели" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="125" Height="38" Margin="393,0,0,103" Click="FurnitureButton_Click" />
                 </Grid>
             </TabItem>
-            <TabItem Header="Отчеты">
+            <TabItem Header="Отчеты" x:Name="ReportsTabItem" Visibility="Hidden">
                 <Grid>
                     <ListBox x:Name="ReportListBox" Margin="122,28,122,166"/>
-                    <Button x:Name="CreateReportButton" Content="Отчет" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="122,266,0,0" Height="45" Width="106" Click="CreateReportButton_Click"/>
-                    <Button x:Name="ReportByManufacturer" Content="Отчет по производителю" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,266,0,0" Height="45" Width="158"></Button>
-
+                    <Button x:Name="CreateReportButton" Content="Отчет" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="122,266,0,0" Height="45" Width="124" Click="CreateReportButton_Click"/>
+                    <Button x:Name="ReportByManufacturer" Content="Отчет по производителю" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,266,0,0" Height="45" Width="158" Click="ReportByManufacturer_Click"/>
+                    <Button x:Name="XMLReportButton" Content="Сформировать XML" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,266,122,0" Height="45" Width="143" Click="XMLReportButton_Click"/>
+                    <ComboBox x:Name="ManufacturerName" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,316,0,0" Width="158" />
                 </Grid>
             </TabItem>
-            <TabItem Header="Продажи">
+            <TabItem Header="Продажи" x:Name="SalesTabItem" Visibility="Hidden">
                 <Grid>
 
                     <StackPanel Margin="87,65,425,115" >

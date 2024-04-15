@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
 using Npgsql;
 
 namespace FurnitureDBLibrary
@@ -11,7 +12,7 @@ namespace FurnitureDBLibrary
     {
         private static readonly DBConnection _instance = new DBConnection();
 
-        private string _connectionString = "Server=localhost;Port=5432;Database=FurnitureDB;User Id=postgres;Password=qy5k--zhr8a98L;";
+        private string _connectionString = ConfigurationManager.ConnectionStrings["NpgsqlConnectionString"].ConnectionString;            
 
         private NpgsqlConnection _connection;
 

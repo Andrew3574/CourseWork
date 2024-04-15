@@ -3,19 +3,10 @@ using FurnitureDBLibrary.Models;
 using FurnitureDBLibrary.UserModels;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace FurnitureShopWPF
 {
@@ -50,23 +41,18 @@ namespace FurnitureShopWPF
             {
                 _user = user;
                 InitializeComponent();
-                ManufacturerComboBox.ItemsSource = _manufacturers;
-                FurnitureTypesComboBox.ItemsSource = _furnitureTypes;
                 switch (_user.RoleId)
                 {
                     case 1:
                         InitializeAdminInterface();
-                        InitializeManagerInterface();
-                        InitializeSalesmanInterface();
                         break;
 
                     case 2:
-                        InitializeManagerInterface();
-                        InitializeSalesmanInterface();
+                        InitializeSalesmanInterface();                        
                         break;
 
                     case 3:
-                        InitializeSalesmanInterface();
+                        InitializeManagerInterface();
                         break;
 
                     default:
@@ -84,9 +70,6 @@ namespace FurnitureShopWPF
         public MainWindow()
         {
             InitializeComponent();
-            //
-            ManufacturerComboBox.ItemsSource = _manufacturerController.Read();
-            FurnitureTypesComboBox.ItemsSource = _furnitureTypeController.Read();
             FurnitureSetListBox.Visibility = Visibility.Hidden;
             FurnitureSetStackPanel.Visibility = Visibility.Hidden;
         }
@@ -123,7 +106,7 @@ namespace FurnitureShopWPF
                     QuantityTextBox.Text = _currentFurniture.FurnitureQuantity.ToString();
                     _furnitureController.Update(_currentFurniture);
 
-                    Sale curSale = (Sale)_sales.Where(sale => _currentFurniture.FurnitureId == sale.FurnitureId).First();
+                    Sale curSale = _sales.Where(sale => _currentFurniture.FurnitureId == sale.FurnitureId && sale.SaleDate == DateTime.Today).First();
 
                     if (curSale == null)
                     {
@@ -225,17 +208,21 @@ namespace FurnitureShopWPF
 
         private void InitializeAdminInterface()
         {
-
+            MainTabItem.Visibility = Visibility.Visible;
+            ReportsTabItem.Visibility = Visibility.Visible;
+            SalesTabItem.Visibility = Visibility.Visible;
         }
 
         private void InitializeManagerInterface()
         {
-
+            MainTabItem.Visibility = Visibility.Visible;
+            ReportsTabItem.Visibility = Visibility.Visible;
         }
 
         private void InitializeSalesmanInterface()
         {
-
+            MainTabItem.Visibility= Visibility.Visible;
+            SalesTabItem.Visibility = Visibility.Visible;
         }
 
         private void AddFurnitureButton_Click(object sender, RoutedEventArgs e)
@@ -311,19 +298,6 @@ namespace FurnitureShopWPF
             }
         }
 
-        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            
-
-            if (FurnitureListBox.SelectedIndex != -1)
-            {
-                _currentFurniture = (Furniture)FurnitureListBox.Items[FurnitureListBox.SelectedIndex];
-                FurnitureNameTextBox.Text = _currentFurniture.FurnitureName;
-                FurniturePriceTextBox.Text = _currentFurniture.FurniturePrice.ToString();
-                FurnitureQuantityTextBox.Text = _currentFurniture.FurnitureQuantity.ToString();
-            }
-        }
-
         private void RefreshFurnitureLBButton_Click(object sender, RoutedEventArgs e)
         {
             _furnitures = _furnitureController.Read();
@@ -340,5 +314,56 @@ namespace FurnitureShopWPF
 
             ReportListBox.ItemsSource = _saleController.GetInfo(_sales,_furnitures,_manufacturers,_furnitureTypes);
         }
+
+
+        private void ReportByManufacturer_Click(object sender, RoutedEventArgs e)
+        {
+            _sales = _saleController.Read();
+            _manufacturers = _manufacturerController.Read();
+            _furnitureTypes = _furnitureTypeController.Read();
+            _furnitures = _furnitureController.Read();
+
+            ReportListBox.ItemsSource = _saleController.GetInfoByManufacturer(ManufacturerName.Text,_sales, _furnitures, _manufacturers, _furnitureTypes);
+
+        }
+        
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Contains(SalesTabItem))
+            {
+                ManufacturerComboBox.ItemsSource = _manufacturerController.Read();
+                FurnitureTypesComboBox.ItemsSource = _furnitureTypeController.Read();
+
+                if (FurnitureListBox.SelectedIndex != -1)
+                {
+                    _currentFurniture = (Furniture)FurnitureListBox.Items[FurnitureListBox.SelectedIndex];
+                    FurnitureNameTextBox.Text = _currentFurniture.FurnitureName;
+                    FurniturePriceTextBox.Text = _currentFurniture.FurniturePrice.ToString();
+                    FurnitureQuantityTextBox.Text = _currentFurniture.FurnitureQuantity.ToString();
+                }
+            }
+
+            if (e.AddedItems.Contains(ReportsTabItem))
+            {
+                ManufacturerName.ItemsSource = _manufacturerController.Read();
+            }
+        }
+
+        private void XMLReportButton_Click(object sender, RoutedEventArgs e)
+        {
+            _sales = _saleController.Read();
+            _manufacturers = _manufacturerController.Read();
+            _furnitureTypes = _furnitureTypeController.Read();
+            _furnitures = _furnitureController.Read();
+
+            var info = _saleController.GetInfo(_sales, _furnitures, _manufacturers, _furnitureTypes);
+
+            _saleController.GenerateXMLReport(info);
+
+            MessageBox.Show("Отчет успешно сформирован в XML формате");
+
+        }
+
+        
     }
 }

@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sales>
+  <sale id="1">
+    <furniture>Комод</furniture>
+    <retailPrice>1160,00</retailPrice>
+    <manufacturer>ОАО «Речицадрев»</manufacturer>
+    <type>Офисная</type>
+    <quantity>20</quantity>
+    <totalCost>23200,0000</totalCost>
+    <date>10.04.2024</date>
+  </sale>
+  <sale id="2">
+    <furniture>Кухонный уголок</furniture>
+    <retailPrice>621,50</retailPrice>
+    <manufacturer>ООО «ДЕЛКОМ40»</manufacturer>
+    <type>Кухонная</type>
+    <quantity>3</quantity>
+    <totalCost>1864,5000</totalCost>
+    <date>12.04.2024</date>
+  </sale>
+  <sale id="4">
+    <furniture>Сервировочный стол</furniture>
+    <retailPrice>2850,00</retailPrice>
+    <manufacturer>ОАО «Речицадрев»</manufacturer>
+    <type>Кухонная</type>
+    <quantity>8</quantity>
+    <totalCost>22800,0000</totalCost>
+    <date>14.04.2024</date>
+  </sale>
+  <sale id="5">
+    <furniture>Канделябр</furniture>
+    <retailPrice>2318,84</retailPrice>
+    <manufacturer>ЗАО «Мозырьлес»</manufacturer>
+    <type>Кухонная</type>
+    <quantity>6</quantity>
+    <totalCost>13913,0400</totalCost>
+    <date>14.04.2024</date>
+  </sale>
+  <sale id="6">
+    <furniture>Шкаф</furniture>
+    <retailPrice>4720,71</retailPrice>
+    <manufacturer>ЗАО «Мозырьлес»</manufacturer>
+    <type>Офисная</type>
+    <quantity>3</quantity>
+    <totalCost>14162,1240</totalCost>
+    <date>14.04.2024</date>
+  </sale>
+  <sale id="7">
+    <furniture>Офисный диван</furniture>
+    <retailPrice>4366,00</retailPrice>
+    <manufacturer>ЗАО «Мозырьлес»</manufacturer>
+    <type>Офисная</type>
+    <quantity>1</quantity>
+    <totalCost>4366,0000</totalCost>
+    <date>14.04.2024</date>
+  </sale>
+  <sale id="8">
+    <furniture>Офисное Кресло</furniture>
+    <retailPrice>2318,84</retailPrice>
+    <manufacturer>ОАО «Речицадрев»</manufacturer>
+    <type>Офисная</type>
+    <quantity>1</quantity>
+    <totalCost>2318,8400</totalCost>
+    <date>14.04.2024</date>
+  </sale>
+  <sale id="9">
+    <furniture>Обеденный стол</furniture>
+    <retailPrice>2373,00</retailPrice>
+    <manufacturer>ООО «ДЕЛКОМ40»</manufacturer>
+    <type>Кухонная</type>
+    <quantity>2</quantity>
+    <totalCost>4746,0000</totalCost>
+    <date>14.04.2024</date>
+  </sale>
+  <sale id="3">
+    <furniture>Настольная лампа</furniture>
+    <retailPrice>2733,06</retailPrice>
+    <manufacturer>ЗАО «Мозырьлес»</manufacturer>
+    <type>Спальная</type>
+    <quantity>22</quantity>
+    <totalCost>60127,3200</totalCost>
+    <date>15.04.2024</date>
+  </sale>
+  <sale id="10">
+    <furniture>Офисный диван</furniture>
+    <retailPrice>4366,00</retailPrice>
+    <manufacturer>ЗАО «Мозырьлес»</manufacturer>
+    <type>Офисная</type>
+    <quantity>2</quantity>
+    <totalCost>8732,0000</totalCost>
+    <date>15.04.2024</date>
+  </sale>
+  <sale id="11">
+    <furniture>Комод</furniture>
+    <retailPrice>1160,00</retailPrice>
+    <manufacturer>ОАО «Речицадрев»</manufacturer>
+    <type>Офисная</type>
+    <quantity>2</quantity>
+    <totalCost>2320,0000</totalCost>
+    <date>15.04.2024</date>
+  </sale>
+</sales>
