@@ -1,8 +1,10 @@
-﻿using FurnitureDBLibrary.DataAccess;
+﻿using FurnitureDBLibrary;
+using FurnitureDBLibrary.DataAccess;
 using FurnitureDBLibrary.Models;
 using FurnitureDBLibrary.UserModels;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,24 +17,24 @@ namespace FurnitureShopWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private User _user;
+        private readonly User _user;
         private Furniture _currentFurniture;
         private FurnitureSet _currentFurnitureSet;
         private Sale _currentSale;
-        private FurnitureSetItem _currentFurnitureSetItem;
         private List<Furniture> _furnitures;
         private List<Manufacturer> _manufacturers;
         private List<FurnitureType> _furnitureTypes;
         private List<FurnitureSet> _furnitureSets;
         private List<FurnitureSetItem> _furnitureSetItems;
         private List<Sale> _sales;
+        bool isReLogined=false;
 
-        private SaleController _saleController = new SaleController();
-        private FurnitureSetItemController _furnitureSetItemController = new FurnitureSetItemController();
-        private FurnitureSetController _furnitureSetController = new FurnitureSetController();
-        private ManufacturerController _manufacturerController = new ManufacturerController();
-        private FurnitureTypeController _furnitureTypeController = new FurnitureTypeController();
-        private FurnitureController _furnitureController = new FurnitureController();
+        private readonly SaleController _saleController = new SaleController();
+        private readonly FurnitureSetItemController _furnitureSetItemController = new FurnitureSetItemController();
+        private readonly FurnitureSetController _furnitureSetController = new FurnitureSetController();
+        private readonly ManufacturerController _manufacturerController = new ManufacturerController();
+        private readonly FurnitureTypeController _furnitureTypeController = new FurnitureTypeController();
+        private readonly FurnitureController _furnitureController = new FurnitureController();
 
         
         public MainWindow(User user)
@@ -134,6 +136,7 @@ namespace FurnitureShopWPF
         private void LoginWindow_Click(object sender, RoutedEventArgs e)
         {
             LoginWindow loginWindow = new LoginWindow();
+            isReLogined = true;
             this.Close();
             loginWindow.Show();
             
@@ -168,6 +171,7 @@ namespace FurnitureShopWPF
 
             _furnitureSets = _furnitureSetController.Read();
             _furnitureSetItems = _furnitureSetItemController.Read();
+            _furnitures = _furnitureController.Read();
 
             FurnitureButton.IsEnabled = true;
             FurnitureSetButton.IsEnabled = false;           
@@ -197,12 +201,35 @@ namespace FurnitureShopWPF
         {
             try
             {
-                //foreach()
-            }
-            catch (Exception)
-            {
+                _sales = _saleController.Read();
+                _currentFurnitureSet = (FurnitureSet)FurnitureSetListBox.Items[FurnitureSetListBox.SelectedIndex];
+                var currentSetItems = _furnitureSetItems.Where( item => item.FurnitureSetId == _currentFurnitureSet.FurnitureSetId ).ToList();
+                foreach (FurnitureSetItem furnitureSetItem in currentSetItems)
+                {
+                    _currentFurniture = _furnitures.Where(furniture => furniture.FurnitureId == furnitureSetItem.FurnitureId).First();
+                    if (_currentFurniture.FurnitureQuantity > 0)
+                    {
+                        _currentFurniture.FurnitureQuantity--;
+                        _furnitureController.Update(_currentFurniture);
 
-                throw;
+                        Sale curSale = _sales.Where(sale => _currentFurniture.FurnitureId == sale.FurnitureId && sale.SaleDate == DateTime.Today).First();
+
+                        _currentSale = new Sale(curSale.SaleId, _currentFurniture.FurnitureId, curSale.FurnitureSaledQuantity + 1, DateTime.Today);
+                        _saleController.Update(_currentSale);
+                    }
+                    else
+                        throw new ArgumentException();                            
+                    
+                }
+            }
+            catch (InvalidOperationException)
+            {
+                _currentSale = new Sale(_sales.Count + 1, _currentFurniture.FurnitureId, 1, DateTime.Today);
+                _saleController.Create(_currentSale);
+            }
+            catch (ArgumentException)
+            {
+                MessageBox.Show("Покупка на данный момент невозможна!");
             }
         }
 
@@ -364,6 +391,15 @@ namespace FurnitureShopWPF
 
         }
 
-        
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if(!isReLogined)
+                DBConnection.GetInstance.CloseConnection();
+        }
+
+        private void BuyFurnitureSetButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

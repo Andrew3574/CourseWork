@@ -32,7 +32,7 @@ namespace FurnitureDBLibrary.DataAccess
 
         public override void Create(Manufacturer model)
         {
-            string command = $"insert into manufacturers values ({model.ManufacturerName},{model.ManufacturerMarkup});";
+            string command = $"insert into manufacturers(manufacturerid,manufacturername,manufacturermarkup) values ({model.ManufacturerId},'{model.ManufacturerName}',{model.ManufacturerMarkup.ToString().Replace(',','.')});";
             _command.CommandText = command;
             _command.ExecuteNonQuery();
         }
@@ -47,7 +47,7 @@ namespace FurnitureDBLibrary.DataAccess
 
         public override void Update(Manufacturer model)
         {
-            string command = $"update manufacturers set manufacturerName = '{model.ManufacturerName}', manufacturermarkup = {model.ManufacturerMarkup} where manufacturerid = {model.ManufacturerId};";
+            string command = $"update manufacturers set manufacturerName = '{model.ManufacturerName}', manufacturermarkup = {model.ManufacturerMarkup.ToString().Replace(',', '.')} where manufacturerid = {model.ManufacturerId};";
             _command.CommandText= command;
             _command.ExecuteNonQuery();
         

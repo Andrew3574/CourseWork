@@ -12,9 +12,9 @@ namespace FurnitureDBLibrary
     {
         private static readonly DBConnection _instance = new DBConnection();
 
-        private string _connectionString = ConfigurationManager.ConnectionStrings["NpgsqlConnectionString"].ConnectionString;            
+        private readonly string _connectionString = ConfigurationManager.ConnectionStrings["NpgsqlConnectionString"].ConnectionString;
 
-        private NpgsqlConnection _connection;
+        private readonly NpgsqlConnection _connection;
 
         private DBConnection()
         {

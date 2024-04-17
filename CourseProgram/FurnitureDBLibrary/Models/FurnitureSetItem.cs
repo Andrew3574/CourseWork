@@ -8,9 +8,9 @@ namespace FurnitureDBLibrary.Models
 {
     public class FurnitureSetItem
     {
-        private int _setItemId;
-        private int _furnitureSetId;
-        private int _furnitureId;
+        private readonly int _setItemId;
+        private readonly int _furnitureSetId;
+        private readonly int _furnitureId;
 
         public FurnitureSetItem(int setItemId, int furnitureSetId, int furnitureId)
         {

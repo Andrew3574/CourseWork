@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="FurnitureShop" Height="450" Width="800">
+        Title="FurnitureShop" Height="450" Width="800"
+        Closing="Window_Closing">
     <Grid>
 
         <Grid.ColumnDefinitions>
