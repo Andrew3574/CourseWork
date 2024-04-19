@@ -1,4 +1,4 @@
-﻿using FurnitureDBLibrary.DataAccess;
+﻿/*using FurnitureDBLibrary.DataAccess;
 using FurnitureDBLibrary.UserModels;
 using System;
 using System.Collections.Generic;
@@ -66,3 +66,4 @@ namespace FurnitureShopWPF
         
     }
 }
+*/

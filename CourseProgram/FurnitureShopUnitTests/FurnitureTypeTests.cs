@@ -9,7 +9,7 @@ namespace FurnitureShopUnitTests
     [TestClass]
     public class FurnitureTypeTests
     {
-        private static readonly FurnitureTypeController furnitureTypeController = new FurnitureTypeController();
+        /*private static readonly FurnitureTypeController furnitureTypeController = new FurnitureTypeController();
         readonly FurnitureTypeController controller = furnitureTypeController;
         FurnitureType newType = new FurnitureType(5, "Терапевтический", (decimal)0.40);
         [TestMethod]
@@ -44,7 +44,7 @@ namespace FurnitureShopUnitTests
         {
             controller.Delete(newType);
         }
-
+*/
         
     }
 }

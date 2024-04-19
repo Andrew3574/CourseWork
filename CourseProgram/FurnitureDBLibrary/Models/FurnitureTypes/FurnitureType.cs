@@ -6,26 +6,19 @@ using System.Threading.Tasks;
 
 namespace FurnitureDBLibrary.Models
 {
-    public class FurnitureType
+    public abstract class FurnitureType
     {
-        private short _typeId;
         private string _typeName;
         private decimal _typeMarkup;
 
-        public FurnitureType(short typeId, string typeName, decimal typeMarkup)
+        public FurnitureType(string typeName, decimal typeMarkup)
         {
-            _typeId = typeId;
             _typeName = typeName;
             _typeMarkup = typeMarkup;
         }
 
-        public short TypeId { get { return _typeId; } }
         public string TypeName { get { return _typeName; } }
-        public decimal TypeMarkup { get { return _typeMarkup; } }
+        public decimal TypeMarkup { get { return _typeMarkup; } set { _typeMarkup = value; } }
 
-        public override string ToString()
-        {
-            return $"{TypeName}";
-        }
     }
 }

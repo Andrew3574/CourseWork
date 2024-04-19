@@ -14,34 +14,56 @@ namespace FurnitureDBLibrary.DataAccess
         public SaleController() : base() { }
         public override List<Sale> Read()
         {
+            ManufacturerController manufacturerController = new ManufacturerController();
+            List<Manufacturer> manufacturers = manufacturerController.Read();
+            FurnitureTypeController furnitureTypeController = new FurnitureTypeController();
+            List<FurnitureType> furnitureTypes = furnitureTypeController.Read();
+
             List<Sale> sales = new List<Sale>();
-            string command = "select * from sales";
+            string command = "select furniturename,furnitureprice,furnituretypename,manufacturername,furnituresaledquantity,saledate " +
+                "from sales join furnitures on furnitures.furnitureid = sales.furnitureid join furnituretypes on furnitures.furnituretypeid = furnituretypes.furnituretypeid join manufacturers on manufacturers.manufacturerid = furnitures.manufacturerid";
             _command.CommandText = command;
             NpgsqlDataReader reader = _command.ExecuteReader();
             if (reader.HasRows)
             {
                 while (reader.Read())
                 {
-                    sales.Add(new Sale(reader.GetInt32(0),reader.GetInt32(1),reader.GetInt32(2),reader.GetDateTime(3)));
+                    var type = furnitureTypes.Find(t => t.TypeName == reader.GetString(2));
+                    var manufacturer = manufacturers.Find(m => m.ManufacturerName == reader.GetString(3));
+
+                    sales.Add(new Sale(reader.GetString(0), reader.GetDecimal(1), type, manufacturer,reader.GetInt32(4), reader.GetDateTime(5)));
                 }
-                reader.Close();
+                
             }
 
+            reader.Close();
             return sales;
         }
 
         public override void Create(Sale model)
         {
-            string command = $"insert into sales(saleid,furnitureid,furnituresaledquantity,saledate) values ({model.SaleId},{model.FurnitureId},{model.FurnitureSaledQuantity},'{model.SaleDate}');";
+            int furnitureId;
+
+            string command = $"select GetFurnitureId('{model.FurnitureName}')";
+            _command.CommandText = command;
+            furnitureId = Convert.ToInt32(_command.ExecuteScalar());
+
+            command = $"insert into sales(furnitureid,furnituresaledquantity,saledate) values ({furnitureId},{model.FurnitureSaledQuantity},'{model.SaleDate}');";
             _command.CommandText = command;
             _command.ExecuteNonQuery();
         }
 
         public override void Update(Sale model)
         {
-           string command = $"update sales set furnitureid = {model.FurnitureId}, furnituresaledquantity = {model.FurnitureSaledQuantity}, saledate = '{model.SaleDate}' where furnitureid = '{model.FurnitureId}' and saledate = '{model.SaleDate}' ;"; 
-           _command.CommandText = command;
-           _command.ExecuteNonQuery();
+            int furnitureId;
+
+            string command = $"select GetFurnitureId('{model.FurnitureName}')";
+            _command.CommandText = command;
+            furnitureId = Convert.ToInt32(_command.ExecuteScalar());
+
+            command = $"update sales set furnitureid = {furnitureId}, furnituresaledquantity = {model.FurnitureSaledQuantity}, saledate = '{model.SaleDate}' where furnitureid = '{furnitureId}' and saledate = '{model.SaleDate}' ;";
+            _command.CommandText = command;
+            _command.ExecuteNonQuery();
         }
 
         public override void Delete(Sale model)
@@ -49,7 +71,7 @@ namespace FurnitureDBLibrary.DataAccess
             throw new Exception("Нельзя удалять отчеты!");
         }
 
-        public string[] GetInfo(List<Sale> sales,List<Furniture> furnitures,List<Manufacturer> manufacturers,List<FurnitureType> furnitureTypes)
+        /*public string[] GetInfo(List<Sale> sales, List<Furniture> furnitures, List<Manufacturer> manufacturers, List<FurnitureType> furnitureTypes)
         {
             string[] sale = new string[sales.Count];
             int i = 0;
@@ -57,10 +79,10 @@ namespace FurnitureDBLibrary.DataAccess
                            join furniture in furnitures on s.FurnitureId equals furniture.FurnitureId
                            join manufact in manufacturers on furniture.FurnitureManufacturerId equals manufact.ManufacturerId
                            join type in furnitureTypes on furniture.FurnitureTypeId equals type.TypeId
-                           select new 
-                           { 
+                           select new
+                           {
                                s.SaleId,
-                               furniture.FurnitureName, 
+                               furniture.FurnitureName,
                                RetailPrice = (furniture.FurniturePrice + furniture.FurniturePrice * type.TypeMarkup + furniture.FurniturePrice * manufact.ManufacturerMarkup),
                                manufact.ManufacturerName,
                                type.TypeName,
@@ -102,7 +124,7 @@ namespace FurnitureDBLibrary.DataAccess
             }
 
             return sale;
-        }
+        }*/
 
         public void GenerateXMLReport(string[] info)
         {

@@ -15,30 +15,31 @@ namespace FurnitureDBLibrary.DataAccess
         public override List<User> Read()
         {
             List<User> users = new List<User>();
-            string command = "select * from users;";
+            string command = "select username,password,rolename from users join roles on roles.@param = users.@param;";
+            NpgsqlParameter roleParam = new NpgsqlParameter("@param","roleid");
             _command.CommandText = command;
+            _command.Parameters.Add(roleParam);
             NpgsqlDataReader reader = _command.ExecuteReader();
             if(reader.HasRows)
             {
                 while(reader.Read())
                 {
-                    switch (reader.GetInt32(1))
+                    switch (reader.GetString(2))
                     {
-                        case 1:
-                            users.Add(new Admin(reader.GetInt32(0),1,reader.GetString(2),reader.GetString(3)));
+                        case "admin":
+                            users.Add(new Admin(reader.GetString(0),reader.GetString(1)));
                             break;
-                        case 2:
-                            users.Add(new Salesman(reader.GetInt32(0), 2, reader.GetString(2), reader.GetString(3)));
+                        case "salesman":
+                            users.Add(new Salesman(reader.GetString(0), reader.GetString(1)));
                             break;
-                        case 3:
-                            users.Add(new Manager(reader.GetInt32(0), 3, reader.GetString(2), reader.GetString(3)));
+                        case "manager":
+                            users.Add(new Manager(reader.GetString(0), reader.GetString(1)));
                             break;
                         default:
-                            throw new Exception("Роль не существует");
+                            throw new Exception("Роль не существует!");
                     }
                 }       
             }
-
             reader.Close();
             return users;
         }

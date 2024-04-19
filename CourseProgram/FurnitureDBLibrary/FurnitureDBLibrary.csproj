@@ -100,14 +100,29 @@
     <Compile Include="DataAccess\SaleController.cs" />
     <Compile Include="DataAccess\UserController.cs" />
     <Compile Include="DBConnection.cs" />
+    <Compile Include="Models\Furnitures\Chair.cs" />
+    <Compile Include="Models\Furnitures\Closet.cs" />
+    <Compile Include="Models\Furnitures\Sofa.cs" />
+    <Compile Include="Models\Furnitures\Table.cs" />
+    <Compile Include="Models\FurnitureSetItems\BedroomSetItem.cs" />
+    <Compile Include="Models\FurnitureSetItems\KitchenSetItem.cs" />
+    <Compile Include="Models\FurnitureSetItems\LoungeSetItem.cs" />
+    <Compile Include="Models\FurnitureSetItems\OfficeSetItem.cs" />
+    <Compile Include="Models\FurnitureTypes\BedroomType.cs" />
+    <Compile Include="Models\FurnitureTypes\KitchenType.cs" />
+    <Compile Include="Models\FurnitureTypes\LoungeType.cs" />
+    <Compile Include="Models\FurnitureTypes\OfficeType.cs" />
+    <Compile Include="Models\Manufacturers\Delcom.cs" />
+    <Compile Include="Models\Manufacturers\Mozirles.cs" />
+    <Compile Include="Models\Manufacturers\Rechicadrev.cs" />
     <Compile Include="Models\Sale.cs" />
     <Compile Include="UserModels\Admin.cs" />
-    <Compile Include="Models\Furniture.cs" />
+    <Compile Include="Models\Furnitures\Furniture.cs" />
     <Compile Include="Models\FurnitureSet.cs" />
-    <Compile Include="Models\FurnitureSetItem.cs" />
-    <Compile Include="Models\FurnitureType.cs" />
+    <Compile Include="Models\FurnitureSetItems\FurnitureSetItem.cs" />
+    <Compile Include="Models\FurnitureTypes\FurnitureType.cs" />
     <Compile Include="UserModels\Manager.cs" />
-    <Compile Include="Models\Manufacturer.cs" />
+    <Compile Include="Models\Manufacturers\Manufacturer.cs" />
     <Compile Include="UserModels\Salesman.cs" />
     <Compile Include="UserModels\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -119,5 +134,6 @@
   <ItemGroup>
     <Content Include="FurnitureShopReport.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

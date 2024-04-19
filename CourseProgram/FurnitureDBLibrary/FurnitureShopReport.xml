@@ -207,4 +207,40 @@
     <totalCost>18984,0000</totalCost>
     <date>17.04.2024</date>
   </sale>
+  <sale id="25">
+    <furniture>Канделябр</furniture>
+    <retailPrice>2318,84</retailPrice>
+    <manufacturer>ЗАО «Мозырьлес»</manufacturer>
+    <type>Кухонная</type>
+    <quantity>1</quantity>
+    <totalCost>2318,8400</totalCost>
+    <date>18.04.2024</date>
+  </sale>
+  <sale id="24">
+    <furniture>Шкаф</furniture>
+    <retailPrice>4720,71</retailPrice>
+    <manufacturer>ЗАО «Мозырьлес»</manufacturer>
+    <type>Офисная</type>
+    <quantity>2</quantity>
+    <totalCost>9441,4160</totalCost>
+    <date>18.04.2024</date>
+  </sale>
+  <sale id="26">
+    <furniture>Сервировочный стол</furniture>
+    <retailPrice>2850,00</retailPrice>
+    <manufacturer>ОАО «Речицадрев»</manufacturer>
+    <type>Кухонная</type>
+    <quantity>1</quantity>
+    <totalCost>2850,0000</totalCost>
+    <date>18.04.2024</date>
+  </sale>
+  <sale id="27">
+    <furniture>Обеденный стол</furniture>
+    <retailPrice>2373,00</retailPrice>
+    <manufacturer>ООО «ДЕЛКОМ40»</manufacturer>
+    <type>Кухонная</type>
+    <quantity>3</quantity>
+    <totalCost>7119,0000</totalCost>
+    <date>18.04.2024</date>
+  </sale>
 </sales>

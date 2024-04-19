@@ -28,7 +28,6 @@ namespace FurnitureShopUnitTests
             decimal expectedMarkup = (decimal)0.35;
             Assert.AreEqual(expectedMarkup, actualMarkup);
             controller.Delete(manufacturer);
-
         }
 
         [TestMethod]

@@ -8,24 +8,38 @@ namespace FurnitureDBLibrary.Models
 {
     public class Sale
     {
-        private int _saleId;
-        private int _furnitureId;
+        private string _furnitureName;
+        private decimal _furniturePrice;
+        private FurnitureType _furnitureType;
+        private Manufacturer _furnitureManufacturer;
         private int _furnitureSaledQuantity;
         private DateTime _saleDate;
 
-        public Sale(int saleId, int furnitureId, int furnitureSaledQuantity, DateTime saleDate)
+        public Sale(string furnitureName, decimal furniturePrice, FurnitureType furnitureType, Manufacturer furnitureManufacturer, int furnitureSaledQuantity, DateTime saleDate)
         {
-            _saleId = saleId;
-            _furnitureId = furnitureId;
+            _furnitureName = furnitureName;
+            _furniturePrice = furniturePrice;
+            _furnitureType = furnitureType;
+            _furnitureManufacturer = furnitureManufacturer;
             _furnitureSaledQuantity = furnitureSaledQuantity;
             _saleDate = saleDate;
+
         }
 
-        public int SaleId { get { return _saleId; } }
-        public int FurnitureId { get { return _furnitureId; } }
-        public int FurnitureSaledQuantity { get { return _furnitureSaledQuantity; } }
+        public string FurnitureName { get { return _furnitureName; } }
+        public decimal FurniturePrice { get { return _furniturePrice; } }
+        public FurnitureType FurnitureType { get { return _furnitureType; } }
+        public Manufacturer FurnitureManufacturer { get { return _furnitureManufacturer; } }
+        public int FurnitureSaledQuantity { get { return _furnitureSaledQuantity; } set { _furnitureSaledQuantity = value; } }
         public DateTime SaleDate { get { return _saleDate; } }
     
+        public decimal GetTotalCost()
+        {
+            decimal totalCost = 0;
+            totalCost = (FurniturePrice + FurniturePrice * FurnitureType.TypeMarkup + FurniturePrice * FurnitureManufacturer.ManufacturerMarkup) * _furnitureSaledQuantity;
+
+            return totalCost;
+        }
     
     }
 }

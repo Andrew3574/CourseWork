@@ -1,4 +1,4 @@
-﻿using FurnitureDBLibrary;
+﻿/*using FurnitureDBLibrary;
 using FurnitureDBLibrary.DataAccess;
 using FurnitureDBLibrary.Models;
 using FurnitureDBLibrary.UserModels;
@@ -403,3 +403,4 @@ namespace FurnitureShopWPF
         }
     }
 }
+*/
