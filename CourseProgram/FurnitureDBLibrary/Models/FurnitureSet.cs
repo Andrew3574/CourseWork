@@ -1,4 +1,4 @@
-﻿/*using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +16,6 @@ namespace FurnitureDBLibrary.Models
         }
 
         public string FurnitureSetName { get { return _furnitureSetName; } }
-    
+
     }
 }
-*/

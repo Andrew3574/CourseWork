@@ -87,7 +87,7 @@ namespace FurnitureDBLibrary.DataAccess
             varietyId = Convert.ToInt32(_command.ExecuteScalar());
 
             command = $"insert into furnitures(furniturename,furnitureprice,furniturequantity,furnituretypeid,manufacturerid,varietyid) values " +
-                $"('{model.FurnitureName}',{model.FurniturePrice},{model.FurnitureQuantity},{typeId},{manufactId},{varietyId});";
+                $"('{model.FurnitureName}',{model.FurniturePrice.ToString().Replace(',','.')},{model.FurnitureQuantity},{typeId},{manufactId},{varietyId});";
             _command.CommandText = command;
             _command.ExecuteNonQuery();
         

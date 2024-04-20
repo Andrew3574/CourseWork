@@ -77,21 +77,24 @@
                     <ComboBox x:Name="ManufacturerName" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,316,0,0" Width="158" />
                 </Grid>
             </TabItem>
+
             <TabItem Header="Продажи" x:Name="SalesTabItem" Visibility="Hidden">
                 <Grid>
 
-                    <StackPanel Margin="87,65,425,115" >
+                    <StackPanel Margin="100,59,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="246" Width="127">
                         <TextBlock Text="Название мебели" FontSize="14"/>
                         <TextBox x:Name="FurnitureNameTextBox"/>
                         <TextBlock Text="Производитель" FontSize="14"/>
-                        <ComboBox x:Name="ManufacturerComboBox"  HorizontalAlignment="Left" Width="110"/>
+                        <ComboBox x:Name="ManufacturerComboBox"  />
 
                         <TextBlock Text="Цена мебели" FontSize="14"/>
-                        <TextBox x:Name="FurniturePriceTextBox" HorizontalAlignment="Left" Width="106"/>
+                        <TextBox x:Name="FurniturePriceTextBox" />
                         <TextBlock Text="Количество мебели" FontSize="14"/>
-                        <TextBox x:Name="FurnitureQuantityTextBox" HorizontalAlignment="Left" Width="107"/>
+                        <TextBox x:Name="FurnitureQuantityTextBox" />
                         <TextBlock Text="Тип мебели" FontSize="14"/>
-                        <ComboBox x:Name="FurnitureTypesComboBox"  HorizontalAlignment="Left" Width="110"/>
+                        <ComboBox x:Name="FurnitureTypesComboBox"  />
+                        <TextBlock Text="Вид мебели" FontSize="14"/>
+                        <ComboBox x:Name="FurnitureVarietyComboBox" />
                     </StackPanel>
 
                     <Button x:Name="RefreshFurnitureLBButton" Content="Обновить перечень" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="612,254,0,0" Height="37" Width="156" Click="RefreshFurnitureLBButton_Click"/>

@@ -1,6 +1,7 @@
-﻿/*using FurnitureDBLibrary;
+﻿using FurnitureDBLibrary;
 using FurnitureDBLibrary.DataAccess;
 using FurnitureDBLibrary.Models;
+using FurnitureDBLibrary.Models.CurrentFurnitures;
 using FurnitureDBLibrary.UserModels;
 using System;
 using System.Collections.Generic;
@@ -19,41 +20,40 @@ namespace FurnitureShopWPF
     {
         private readonly User _user;
         private Furniture _currentFurniture;
-        private FurnitureSet _currentFurnitureSet;
+        private FurnitureSetItem _currentFurnitureSetItem;
         private Sale _currentSale;
         private List<Furniture> _furnitures;
         private List<Manufacturer> _manufacturers;
         private List<FurnitureType> _furnitureTypes;
-        private List<FurnitureSet> _furnitureSets;
         private List<FurnitureSetItem> _furnitureSetItems;
         private List<Sale> _sales;
-        bool isReLogined=false;
+        private List<string> varietyList = new List<string>();        
+        bool isReLogined = false;
 
         private readonly SaleController _saleController = new SaleController();
         private readonly FurnitureSetItemController _furnitureSetItemController = new FurnitureSetItemController();
-        private readonly FurnitureSetController _furnitureSetController = new FurnitureSetController();
         private readonly ManufacturerController _manufacturerController = new ManufacturerController();
         private readonly FurnitureTypeController _furnitureTypeController = new FurnitureTypeController();
         private readonly FurnitureController _furnitureController = new FurnitureController();
 
-        
+
         public MainWindow(User user)
         {
             try
             {
                 _user = user;
                 InitializeComponent();
-                switch (_user.RoleId)
+                switch (_user.RoleName.ToLower())
                 {
-                    case 1:
+                    case "admin":
                         InitializeAdminInterface();
                         break;
 
-                    case 2:
-                        InitializeSalesmanInterface();                        
+                    case "salesman":
+                        InitializeSalesmanInterface();
                         break;
 
-                    case 3:
+                    case "manager":
                         InitializeManagerInterface();
                         break;
 
@@ -81,16 +81,15 @@ namespace FurnitureShopWPF
             if (BuyFurnitureButton.IsEnabled == false)
                 BuyFurnitureButton.IsEnabled = true;
 
-            if (FurnitureListBox.SelectedItem != null && FurnitureListBox.SelectedItem is Furniture == true)
+            if (FurnitureListBox.SelectedItem != null /*&& FurnitureListBox.SelectedItem is Furniture == true*/)
             {
                 _currentFurniture = (Furniture)FurnitureListBox.Items[FurnitureListBox.SelectedIndex];
-                var curFurniture = _furnitureController.GetCurrentFurnitureInfo(_currentFurniture, _furnitures, _manufacturers, _furnitureTypes);
-                
-                NameTextBox.Text = curFurniture[0];
-                PriceTextBox.Text = curFurniture[1];
-                ManufacturerTextBox.Text = curFurniture[2];
-                TypeTextBox.Text = curFurniture[3];
-                QuantityTextBox.Text = curFurniture[4];
+               
+                NameTextBox.Text = _currentFurniture.FurnitureName;
+                PriceTextBox.Text = _currentFurniture.FurniturePrice.ToString();
+                ManufacturerTextBox.Text = _currentFurniture.FurnitureManufacturer.ManufacturerName;
+                TypeTextBox.Text = _currentFurniture.FurnitureType.TypeName;
+                QuantityTextBox.Text = _currentFurniture.FurnitureQuantity.ToString();
 
             }
         }
@@ -108,28 +107,28 @@ namespace FurnitureShopWPF
                     QuantityTextBox.Text = _currentFurniture.FurnitureQuantity.ToString();
                     _furnitureController.Update(_currentFurniture);
 
-                    Sale curSale = _sales.Where(sale => _currentFurniture.FurnitureId == sale.FurnitureId && sale.SaleDate == DateTime.Today).First();
+                    Sale curSale = _sales.Find(sale => _currentFurniture.FurnitureName == sale.FurnitureName && sale.SaleDate == DateTime.Today);
 
                     if (curSale == null)
                     {
-                        _currentSale = new Sale(_sales.Count + 1, _currentFurniture.FurnitureId, 1, DateTime.Today);
+                        _currentSale = new Sale(_currentFurniture.FurnitureName,_currentFurniture.FurniturePrice,_currentFurniture.FurnitureType,_currentFurniture.FurnitureManufacturer, 1, DateTime.Today);
                         _saleController.Create(_currentSale);
                     }
                     else
                     {
-                        _currentSale = new Sale( curSale.SaleId, _currentFurniture.FurnitureId, curSale.FurnitureSaledQuantity + 1, DateTime.Today);
+                        _currentSale = new Sale(_currentFurniture.FurnitureName, _currentFurniture.FurniturePrice, _currentFurniture.FurnitureType, _currentFurniture.FurnitureManufacturer, curSale.FurnitureSaledQuantity + 1, DateTime.Today);
                         _saleController.Update(_currentSale);
                     }
-                    
+
                 }
                 else
                     MessageBox.Show("На данный момент товара нет!");
             }
             catch (InvalidOperationException)
             {
-                _currentSale = new Sale(_sales.Count + 1, _currentFurniture.FurnitureId, 1, DateTime.Today);
+                _currentSale = new Sale(_currentFurniture.FurnitureName, _currentFurniture.FurniturePrice, _currentFurniture.FurnitureType, _currentFurniture.FurnitureManufacturer, 1, DateTime.Today);
                 _saleController.Create(_currentSale);
-            }            
+            }
 
         }
 
@@ -139,7 +138,7 @@ namespace FurnitureShopWPF
             isReLogined = true;
             this.Close();
             loginWindow.Show();
-            
+
         }
 
         private void FurnitureButton_Click(object sender, RoutedEventArgs e)
@@ -150,35 +149,35 @@ namespace FurnitureShopWPF
             FurnitureSetStackPanel.Visibility = Visibility.Hidden;
 
             _furnitures = _furnitureController.Read();
-            _manufacturers = _manufacturerController.Read();
-            _furnitureTypes = _furnitureTypeController.Read();
 
             FurnitureButton.IsEnabled = false;
             FurnitureSetButton.IsEnabled = true;
 
             FurnitureListBox.ItemsSource = _furnitures;
 
-            
+
         }
 
         private void FurnitureSetButton_Click(object sender, RoutedEventArgs e)
         {
+
+            FurnitureSetController furnitureSetController = new FurnitureSetController();
             FurnitureSetListBox.Visibility = Visibility.Visible;
             FurnitureSetStackPanel.Visibility = Visibility.Visible;
             FurnitureListBox.Visibility = Visibility.Hidden;
             FurnitureStackPanel.Visibility = Visibility.Hidden;
             BuyFurnitureButton.IsEnabled = false;
 
-            _furnitureSets = _furnitureSetController.Read();
+            List<FurnitureSet> furnitureSets = furnitureSetController.Read();
             _furnitureSetItems = _furnitureSetItemController.Read();
             _furnitures = _furnitureController.Read();
 
             FurnitureButton.IsEnabled = true;
-            FurnitureSetButton.IsEnabled = false;           
+            FurnitureSetButton.IsEnabled = false;
 
-            FurnitureSetListBox.ItemsSource = _furnitureSets;
+            FurnitureSetListBox.ItemsSource = furnitureSets;
 
-            
+
         }
 
         private void FurnitureSetListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -186,24 +185,22 @@ namespace FurnitureShopWPF
             if (BuyFurnitureSetButton.IsEnabled == false)
                 BuyFurnitureSetButton.IsEnabled = true;
 
-            if (FurnitureSetListBox.SelectedItem != null && FurnitureSetListBox.SelectedItem is FurnitureSet == true)
+            if (FurnitureSetListBox.SelectedItem != null /*&& FurnitureSetListBox.SelectedItem is FurnitureSet == true*/)
             {
-                _currentFurnitureSet = (FurnitureSet)FurnitureSetListBox.Items[FurnitureSetListBox.SelectedIndex];
-                var curSet = _furnitureSetController.GetInfo(_currentFurnitureSet,_furnitureSetItems,_furnitures);
+                _currentFurnitureSetItem = (FurnitureSetItem)FurnitureSetListBox.Items[FurnitureSetListBox.SelectedIndex];
 
-                SetItemNameTextBlock.Text = curSet;
-
+                SetItemNameTextBlock.Text = _currentFurnitureSetItem.FurnitureSetName;
 
             }
         }
 
         private void BuySetButton_Click(object sender, RoutedEventArgs e)
         {
-            try
+            /*try
             {
                 _sales = _saleController.Read();
                 _currentFurnitureSet = (FurnitureSet)FurnitureSetListBox.Items[FurnitureSetListBox.SelectedIndex];
-                var currentSetItems = _furnitureSetItems.Where( item => item.FurnitureSetId == _currentFurnitureSet.FurnitureSetId ).ToList();
+                var currentSetItems = _furnitureSetItems.Where(item => item.FurnitureSetId == _currentFurnitureSet.FurnitureSetId).ToList();
                 foreach (FurnitureSetItem furnitureSetItem in currentSetItems)
                 {
                     _currentFurniture = _furnitures.Where(furniture => furniture.FurnitureId == furnitureSetItem.FurnitureId).First();
@@ -218,8 +215,8 @@ namespace FurnitureShopWPF
                         _saleController.Update(_currentSale);
                     }
                     else
-                        throw new ArgumentException();                            
-                    
+                        throw new ArgumentException();
+
                 }
             }
             catch (InvalidOperationException)
@@ -230,7 +227,7 @@ namespace FurnitureShopWPF
             catch (ArgumentException)
             {
                 MessageBox.Show("Покупка на данный момент невозможна!");
-            }
+            }*/
         }
 
         private void InitializeAdminInterface()
@@ -248,7 +245,7 @@ namespace FurnitureShopWPF
 
         private void InitializeSalesmanInterface()
         {
-            MainTabItem.Visibility= Visibility.Visible;
+            MainTabItem.Visibility = Visibility.Visible;
             SalesTabItem.Visibility = Visibility.Visible;
         }
 
@@ -256,27 +253,38 @@ namespace FurnitureShopWPF
         {
             try
             {
-               
-                int furnId = _furnitureController.Read().Count() + 1;
-                short manufactId = Convert.ToInt16(FurnitureTypesComboBox.SelectedIndex + 1);
-                short typeId = Convert.ToInt16(ManufacturerComboBox.SelectedIndex + 1);
+                //-----------
 
-                Furniture furniture = new Furniture
-                    (furnId,
-                    FurnitureNameTextBox.Text,
-                    Convert.ToDecimal(FurniturePriceTextBox.Text),
-                    Convert.ToInt32(FurnitureQuantityTextBox.Text),
-                    manufactId,
-                    typeId);
-                    
-
-                _furnitureController.Create(furniture);
+                Furniture furniture;
+                Manufacturer curManufacturer = _manufacturers.Find(m => m.ManufacturerName == ManufacturerComboBox.Items[ManufacturerComboBox.SelectedIndex].ToString());
+                FurnitureType curFurnitureType = _furnitureTypes.Find(t => t.TypeName == FurnitureTypesComboBox.Items[FurnitureTypesComboBox.SelectedIndex].ToString());
                 
+                switch (FurnitureVarietyComboBox.Items[FurnitureVarietyComboBox.SelectedIndex].ToString().ToLower())
+                {
+                    case "стул":
+                        furniture = new Chair(FurnitureNameTextBox.Text,Convert.ToDecimal(FurniturePriceTextBox.Text),Convert.ToInt32(FurnitureQuantityTextBox.Text), curFurnitureType, curManufacturer);
+                        break;
 
+                    case "стол":
+                        furniture = new Table(FurnitureNameTextBox.Text, Convert.ToDecimal(FurniturePriceTextBox.Text), Convert.ToInt32(FurnitureQuantityTextBox.Text), curFurnitureType, curManufacturer);
+                        break;
+
+                    case "диван":
+                        furniture = new Sofa(FurnitureNameTextBox.Text, Convert.ToDecimal(FurniturePriceTextBox.Text), Convert.ToInt32(FurnitureQuantityTextBox.Text), curFurnitureType, curManufacturer);
+                        break;
+
+                    case "шкаф":
+                        furniture = new Closet(FurnitureNameTextBox.Text, Convert.ToDecimal(FurniturePriceTextBox.Text), Convert.ToInt32(FurnitureQuantityTextBox.Text), curFurnitureType, curManufacturer);
+                        break;
+
+                    default:
+                        throw new Exception();
+                }
+                _furnitureController.Create(furniture);
             }
-            catch (Exception )
+            catch (Exception)
             {
-                MessageBox.Show("Ошибка ввода параметров товара!");
+                MessageBox.Show("Ошибка ввода параметров товара");
             }
         }
 
@@ -287,20 +295,15 @@ namespace FurnitureShopWPF
             try
             {
                 _currentFurniture = (Furniture)FurnitureListBox.Items[FurnitureListBox.SelectedIndex];
+                /*
+                                if (FurnitureTypesComboBox.SelectedIndex == -1 || FurnitureTypesComboBox.SelectedItem == null)
+                                    FurnitureTypesComboBox.SelectedIndex = _currentFurniture.FurnitureTypeId - 1;
 
-                if (FurnitureTypesComboBox.SelectedIndex == -1 || FurnitureTypesComboBox.SelectedItem == null)
-                    FurnitureTypesComboBox.SelectedIndex = _currentFurniture.FurnitureTypeId - 1;
+                                if (ManufacturerComboBox.SelectedIndex == -1 || ManufacturerComboBox.SelectedItem == null)
+                                    ManufacturerComboBox.SelectedIndex = _currentFurniture.FurnitureManufacturerId - 1;*/
 
-                if (ManufacturerComboBox.SelectedIndex == -1 || ManufacturerComboBox.SelectedItem == null)
-                    ManufacturerComboBox.SelectedIndex = _currentFurniture.FurnitureManufacturerId - 1;
-
-                int furnId = _furnitureController.Read().Count() + 1;
-                short manufactId = Convert.ToInt16(FurnitureTypesComboBox.SelectedIndex + 1);
-                short typeId = Convert.ToInt16(ManufacturerComboBox.SelectedIndex + 1);
-
-                furniture = new Furniture(furnId, FurnitureNameTextBox.Text, Convert.ToDecimal(FurniturePriceTextBox.Text), Convert.ToInt32(FurnitureQuantityTextBox.Text), manufactId, typeId);
-
-                _furnitureController.Update(furniture);
+                _currentFurniture.FurnitureQuantity = Convert.ToInt32(FurnitureQuantityTextBox.Text);
+                _furnitureController.Update(_currentFurniture);
             }
             catch (Exception ex)
             {
@@ -313,10 +316,9 @@ namespace FurnitureShopWPF
         {
             try
             {
-                Furniture furniture = _furnitureController.Read().Where(furn => FurnitureNameTextBox.Text == furn.FurnitureName).First();
+                _currentFurniture = (Furniture)FurnitureListBox.Items[FurnitureListBox.SelectedIndex];
 
-
-                _furnitureController.Delete(furniture);
+                _furnitureController.Delete(_currentFurniture);
             }
             catch (Exception)
             {
@@ -335,31 +337,39 @@ namespace FurnitureShopWPF
         private void CreateReportButton_Click(object sender, RoutedEventArgs e)
         {
             _sales = _saleController.Read();
-            _manufacturers = _manufacturerController.Read();
-            _furnitureTypes= _furnitureTypeController.Read();
-            _furnitures = _furnitureController.Read();
 
-            ReportListBox.ItemsSource = _saleController.GetInfo(_sales,_furnitures,_manufacturers,_furnitureTypes);
+            ReportListBox.ItemsSource = _sales;
         }
 
 
         private void ReportByManufacturer_Click(object sender, RoutedEventArgs e)
         {
-            _sales = _saleController.Read();
-            _manufacturers = _manufacturerController.Read();
-            _furnitureTypes = _furnitureTypeController.Read();
-            _furnitures = _furnitureController.Read();
+            if (ManufacturerName.SelectedIndex != -1)
+            {
+                _sales = _saleController.Read();
+                string manufacturerName = ManufacturerName.Items[ManufacturerName.SelectedIndex].ToString();
+                var salesByManufacturer = _sales.FindAll(sale => sale.FurnitureManufacturer.ManufacturerName == manufacturerName);
 
-            ReportListBox.ItemsSource = _saleController.GetInfoByManufacturer(ManufacturerName.Text,_sales, _furnitures, _manufacturers, _furnitureTypes);
+                ReportListBox.ItemsSource = salesByManufacturer;
+            }
+            else
+                MessageBox.Show("Необходимо выбрать производителя");
 
         }
-        
+
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Contains(SalesTabItem))
             {
-                ManufacturerComboBox.ItemsSource = _manufacturerController.Read();
-                FurnitureTypesComboBox.ItemsSource = _furnitureTypeController.Read();
+                _furnitures = _furnitureController.Read();
+                foreach(Furniture furn in _furnitures)
+                    varietyList.Add(furn.FurnitureVariety);
+
+                FurnitureVarietyComboBox.ItemsSource = varietyList;
+                _manufacturers = _manufacturerController.Read();
+                _furnitureTypes = _furnitureTypeController.Read();
+                ManufacturerComboBox.ItemsSource = _manufacturers;
+                FurnitureTypesComboBox.ItemsSource = _furnitureTypes;
 
                 if (FurnitureListBox.SelectedIndex != -1)
                 {
@@ -379,13 +389,7 @@ namespace FurnitureShopWPF
         private void XMLReportButton_Click(object sender, RoutedEventArgs e)
         {
             _sales = _saleController.Read();
-            _manufacturers = _manufacturerController.Read();
-            _furnitureTypes = _furnitureTypeController.Read();
-            _furnitures = _furnitureController.Read();
-
-            var info = _saleController.GetInfo(_sales, _furnitures, _manufacturers, _furnitureTypes);
-
-            _saleController.GenerateXMLReport(info);
+            _saleController.GenerateXMLReport(_sales);
 
             MessageBox.Show("Отчет успешно сформирован в XML формате");
 
@@ -393,7 +397,7 @@ namespace FurnitureShopWPF
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if(!isReLogined)
+            if (!isReLogined)
                 DBConnection.GetInstance.CloseConnection();
         }
 
@@ -403,4 +407,3 @@ namespace FurnitureShopWPF
         }
     }
 }
-*/

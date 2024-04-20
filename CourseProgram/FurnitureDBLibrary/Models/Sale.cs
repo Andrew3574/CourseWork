@@ -32,7 +32,7 @@ namespace FurnitureDBLibrary.Models
         public Manufacturer FurnitureManufacturer { get { return _furnitureManufacturer; } }
         public int FurnitureSaledQuantity { get { return _furnitureSaledQuantity; } set { _furnitureSaledQuantity = value; } }
         public DateTime SaleDate { get { return _saleDate; } }
-    
+
         public decimal GetTotalCost()
         {
             decimal totalCost = 0;
@@ -40,6 +40,10 @@ namespace FurnitureDBLibrary.Models
 
             return totalCost;
         }
-    
+
+        public override string ToString()
+        {
+            return $"{FurnitureName} | {FurniturePrice:#.00} | {FurnitureManufacturer.ManufacturerName} | {FurnitureType.TypeName} | {FurnitureSaledQuantity} | {GetTotalCost()} | {SaleDate:d}";
+        }
     }
 }

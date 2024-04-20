@@ -22,10 +22,11 @@ namespace FurnitureDBLibrary.DataAccess
 
             List<FurnitureSetItem> furnitureSetItems = new List<FurnitureSetItem>();
             string command = $"select furniturename,furnitureprice,furniturequantity,furnituretypename,manufacturername,furnituresetname " +
-                $"from furnituresetitems" +
-                $"join furnituresets on furnituresets.furnituresetid = furnituresetitems.furnituresetid  " +
-                $"join furnituretypes on furnitures.furnituretypeid = furnituresetitems.furnituretypeid " +
-                $"join manufacturers on manufacturers.manufacturerid = furnitures.manufacturerid" +
+                $"from furnituresetitems " +
+                $"join furnitures on furnitures.furnitureid = furnituresetitems.furnitureid " +
+                $"join furnituresets on furnituresets.furnituresetid = furnituresetitems.furnituresetid " +
+                $"join furnituretypes on furnitures.furnituretypeid = furnituretypes.furnituretypeid " +
+                $"join manufacturers on manufacturers.manufacturerid = furnitures.manufacturerid " +
                 $"order by @param;";
 
             NpgsqlParameter idParam = new NpgsqlParameter("@param", "furnituresetid");

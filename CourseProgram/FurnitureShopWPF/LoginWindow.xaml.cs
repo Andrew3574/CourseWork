@@ -1,4 +1,4 @@
-﻿/*using FurnitureDBLibrary.DataAccess;
+﻿using FurnitureDBLibrary.DataAccess;
 using FurnitureDBLibrary.UserModels;
 using System;
 using System.Collections.Generic;
@@ -21,14 +21,13 @@ namespace FurnitureShopWPF
     /// </summary>
     public partial class LoginWindow : Window
     {
-        private UserController _userController;
+        private UserController _userController = new UserController();
         private List<User> _users;
 
         public LoginWindow()
         {
             try
-            {
-                _userController = new UserController();
+            {                
                 _users = _userController.Read();
                 InitializeComponent();
             }
@@ -42,17 +41,18 @@ namespace FurnitureShopWPF
         {
             try
             {
-                User currentUser = _userController.GetUser(UserNameTextBox.Text, Passwordbox.Password, _users);
+                _users = _userController.Read();
+                User currentUser = _users.Find(u => u.UserName == UserNameTextBox.Text && u.Password == Passwordbox.Password);
                 MainWindow mainWindow = new MainWindow(currentUser);
                 this.Close();
                 mainWindow.Show();
-                  
+
             }
             catch (Exception)
             {
                 MessageBox.Show("Некорректный ввод пользователя!");
-            }           
-            
+            }
+
         }
 
         private void GuestEnterButton_Click(object sender, RoutedEventArgs e)
@@ -60,10 +60,9 @@ namespace FurnitureShopWPF
             MainWindow mainWindow = new MainWindow();
             this.Close();
             mainWindow.Show();
-            
+
         }
 
-        
+
     }
 }
-*/

@@ -71,62 +71,7 @@ namespace FurnitureDBLibrary.DataAccess
             throw new Exception("Нельзя удалять отчеты!");
         }
 
-        /*public string[] GetInfo(List<Sale> sales, List<Furniture> furnitures, List<Manufacturer> manufacturers, List<FurnitureType> furnitureTypes)
-        {
-            string[] sale = new string[sales.Count];
-            int i = 0;
-            var saleInfo = from s in sales
-                           join furniture in furnitures on s.FurnitureId equals furniture.FurnitureId
-                           join manufact in manufacturers on furniture.FurnitureManufacturerId equals manufact.ManufacturerId
-                           join type in furnitureTypes on furniture.FurnitureTypeId equals type.TypeId
-                           select new
-                           {
-                               s.SaleId,
-                               furniture.FurnitureName,
-                               RetailPrice = (furniture.FurniturePrice + furniture.FurniturePrice * type.TypeMarkup + furniture.FurniturePrice * manufact.ManufacturerMarkup),
-                               manufact.ManufacturerName,
-                               type.TypeName,
-                               s.FurnitureSaledQuantity,
-                               s.SaleDate
-                           };
-            foreach (var s in saleInfo)
-            {
-                sale[i] += $"{s.SaleId}/{s.FurnitureName}/{s.RetailPrice:#.00}/{s.ManufacturerName}/{s.TypeName}/{s.FurnitureSaledQuantity}/{s.RetailPrice * s.FurnitureSaledQuantity}/{s.SaleDate:d}";
-                i++;
-            }
-
-            return sale;
-        }
-
-        public string[] GetInfoByManufacturer(string manufacturer, List<Sale> sales, List<Furniture> furnitures, List<Manufacturer> manufacturers, List<FurnitureType> furnitureTypes)
-        {
-            string[] sale = new string[sales.Count];
-            int i = 0;
-            var saleInfo = from s in sales
-                           join furniture in furnitures on s.FurnitureId equals furniture.FurnitureId
-                           join manufact in manufacturers on furniture.FurnitureManufacturerId equals manufact.ManufacturerId
-                           join type in furnitureTypes on furniture.FurnitureTypeId equals type.TypeId
-                           where manufact.ManufacturerName == manufacturer
-                           select new
-                           {
-                               s.SaleId,
-                               furniture.FurnitureName,
-                               RetailPrice = (furniture.FurniturePrice + furniture.FurniturePrice * type.TypeMarkup + furniture.FurniturePrice * manufact.ManufacturerMarkup),
-                               manufact.ManufacturerName,
-                               type.TypeName,
-                               s.FurnitureSaledQuantity,
-                               s.SaleDate
-                           };
-            foreach (var s in saleInfo)
-            {
-                sale[i] += $"{s.SaleId}/{s.FurnitureName}/{s.RetailPrice:#.00}/{s.ManufacturerName}/{s.TypeName}/{s.FurnitureSaledQuantity}/{s.RetailPrice * s.FurnitureSaledQuantity}/{s.SaleDate:d}";
-                i++;
-            }
-
-            return sale;
-        }*/
-
-        public void GenerateXMLReport(string[] info)
+        public void GenerateXMLReport(List<Sale> sales)
         {
             XmlDocument xmlDocument = new XmlDocument();
             xmlDocument.Load("D:\\КурсоваяРабота\\CourseProgram\\FurnitureDBLibrary\\FurnitureShopReport.xml");
@@ -135,12 +80,10 @@ namespace FurnitureDBLibrary.DataAccess
             if (xRoot != null)
                 xRoot.RemoveAll();
 
-            foreach (string inf in info)
+            foreach (Sale s in sales)
             {
-                string[] currentSale = inf.Split('/');
 
                 XmlElement sale = xmlDocument.CreateElement("sale");
-                XmlAttribute idAttribute = xmlDocument.CreateAttribute("id");
 
                 XmlElement furniture = xmlDocument.CreateElement("furniture");
                 XmlElement retailPrice = xmlDocument.CreateElement("retailPrice");
@@ -150,16 +93,14 @@ namespace FurnitureDBLibrary.DataAccess
                 XmlElement totalCost = xmlDocument.CreateElement("totalCost");
                 XmlElement date = xmlDocument.CreateElement("date");
 
-                XmlText idText = xmlDocument.CreateTextNode($"{currentSale[0]}");
-                XmlText furnitureText = xmlDocument.CreateTextNode($"{currentSale[1]}");
-                XmlText retailPriceText = xmlDocument.CreateTextNode($"{currentSale[2]}");
-                XmlText manufacturerText = xmlDocument.CreateTextNode($"{currentSale[3]}");
-                XmlText typeText = xmlDocument.CreateTextNode($"{currentSale[4]}");
-                XmlText quantityText = xmlDocument.CreateTextNode($"{currentSale[5]}");
-                XmlText totalCostText = xmlDocument.CreateTextNode($"{currentSale[6]}");
-                XmlText dateText = xmlDocument.CreateTextNode($"{currentSale[7]}");
+                XmlText furnitureText = xmlDocument.CreateTextNode($"{s.FurnitureName}");
+                XmlText retailPriceText = xmlDocument.CreateTextNode($"{s.FurniturePrice}");
+                XmlText manufacturerText = xmlDocument.CreateTextNode($"{s.FurnitureManufacturer.ManufacturerName}");
+                XmlText typeText = xmlDocument.CreateTextNode($"{s.FurnitureType.TypeName}");
+                XmlText quantityText = xmlDocument.CreateTextNode($"{s.FurnitureSaledQuantity}");
+                XmlText totalCostText = xmlDocument.CreateTextNode($"{s.GetTotalCost()}");
+                XmlText dateText = xmlDocument.CreateTextNode($"{s.SaleDate:d}");
 
-                idAttribute.AppendChild(idText);
                 furniture.AppendChild(furnitureText);
                 retailPrice.AppendChild(retailPriceText);
                 manufacturer.AppendChild(manufacturerText);
@@ -168,7 +109,6 @@ namespace FurnitureDBLibrary.DataAccess
                 totalCost.AppendChild(totalCostText);
                 date.AppendChild(dateText);
 
-                sale.Attributes.Append(idAttribute);
 
                 sale.AppendChild(furniture);
                 sale.AppendChild(retailPrice);

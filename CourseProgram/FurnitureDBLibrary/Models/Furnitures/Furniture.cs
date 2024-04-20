@@ -15,7 +15,7 @@ namespace FurnitureDBLibrary.Models
         private int _furnitureQuantity;
         private FurnitureType _furnitureType;
         private Manufacturer _furnitureManufacturer;
-
+        
         public Furniture(string furnitureName, decimal furniturePrice, int furnitureQuantity, FurnitureType furnitureType, Manufacturer furnitureManufacturerName)
         {
             _furnitureName = furnitureName;

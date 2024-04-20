@@ -11,7 +11,11 @@ namespace FurnitureDBLibrary.Models
         public FurnitureSetItem(string furnitureName, decimal furniturePrice, int furnitureQuantity, FurnitureType furnitureType, Manufacturer furnitureManufacturerName)
             : base(furnitureName, furniturePrice, furnitureQuantity, furnitureType, furnitureManufacturerName) { }
 
-        public abstract string FurnitureSetName { get; }   
+        public abstract string FurnitureSetName { get; }
 
+        public override string ToString()
+        {
+            return $"{FurnitureSetName}";
+        }
     }
 }

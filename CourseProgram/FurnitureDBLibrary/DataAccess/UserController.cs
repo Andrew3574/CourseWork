@@ -14,8 +14,9 @@ namespace FurnitureDBLibrary.DataAccess
 
         public override List<User> Read()
         {
+            _command.Parameters.Clear();
             List<User> users = new List<User>();
-            string command = "select username,password,rolename from users join roles on roles.@param = users.@param;";
+            string command = "select username,password,rolename from users join roles on roles.roleid = users.roleid order by @param;";
             NpgsqlParameter roleParam = new NpgsqlParameter("@param","roleid");
             _command.CommandText = command;
             _command.Parameters.Add(roleParam);
@@ -24,7 +25,7 @@ namespace FurnitureDBLibrary.DataAccess
             {
                 while(reader.Read())
                 {
-                    switch (reader.GetString(2))
+                    switch (reader.GetString(2).ToLower())
                     {
                         case "admin":
                             users.Add(new Admin(reader.GetString(0),reader.GetString(1)));
@@ -57,21 +58,7 @@ namespace FurnitureDBLibrary.DataAccess
         public override void Delete(User model)
         {
             throw new Exception("Нельзя удалять роли");
-        }
-
-        public User GetUser(string name,string password,List<User> users)
-        {
-            var sortUser = from user in users
-                           where user.UserName == name &&
-                                 user.Password == password
-                           select user;
-           
-            if (sortUser.First() != null )
-                return sortUser.First();            
-            else
-                return null;
-
-        }
+        }       
 
     }
 }
