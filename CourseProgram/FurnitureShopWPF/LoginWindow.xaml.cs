@@ -41,11 +41,16 @@ namespace FurnitureShopWPF
         {
             try
             {
-                _users = _userController.Read();
-                User currentUser = _users.Find(u => u.UserName == UserNameTextBox.Text && u.Password == Passwordbox.Password);
-                MainWindow mainWindow = new MainWindow(currentUser);
-                this.Close();
-                mainWindow.Show();
+                if (_users.Find(u => u.UserName == UserNameTextBox.Text && u.Password == Passwordbox.Password) != null)
+                {
+                    _users = _userController.Read();
+                    User currentUser = _users.Find(u => u.UserName == UserNameTextBox.Text && u.Password == Passwordbox.Password);
+                    MainWindow mainWindow = new MainWindow(currentUser);
+                    this.Close();
+                    mainWindow.Show();
+                }
+                else
+                    throw new Exception();
 
             }
             catch (Exception)

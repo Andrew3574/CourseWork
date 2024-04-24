@@ -53,3 +53,5 @@ D:\КурсоваяРабота\CourseProgram\FurnitureShopWPF\obj\Debug\Furnitu
 D:\КурсоваяРабота\CourseProgram\FurnitureShopWPF\obj\Debug\FurnitureShopWPF.csproj.CopyComplete
 D:\КурсоваяРабота\CourseProgram\FurnitureShopWPF\obj\Debug\FurnitureShopWPF.exe
 D:\КурсоваяРабота\CourseProgram\FurnitureShopWPF\obj\Debug\FurnitureShopWPF.pdb
+D:\КурсоваяРабота\CourseProgram\FurnitureShopWPF\obj\Debug\CartWindow.g.cs
+D:\КурсоваяРабота\CourseProgram\FurnitureShopWPF\obj\Debug\CartWindow.baml

@@ -1,4 +1,5 @@
 ﻿using FurnitureDBLibrary.Models;
+using FurnitureDBLibrary.Models.FurnitureTypes;
 using Npgsql;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace FurnitureDBLibrary.DataAccess
                     var type = furnitureTypes.Find(t => t.TypeName == reader.GetString(2));
                     var manufacturer = manufacturers.Find(m => m.ManufacturerName == reader.GetString(3));
 
-                    sales.Add(new Sale(reader.GetString(0), reader.GetDecimal(1), type, manufacturer,reader.GetInt32(4), reader.GetDateTime(5)));
+                    sales.Add(new Sale(reader.GetString(0), reader.GetDecimal(1), manufacturer.ManufacturerName, type.TypeName, reader.GetInt32(4), reader.GetDateTime(5)));
                 }
                 
             }
@@ -82,7 +83,7 @@ namespace FurnitureDBLibrary.DataAccess
 
             foreach (Sale s in sales)
             {
-
+                
                 XmlElement sale = xmlDocument.CreateElement("sale");
 
                 XmlElement furniture = xmlDocument.CreateElement("furniture");
@@ -94,11 +95,11 @@ namespace FurnitureDBLibrary.DataAccess
                 XmlElement date = xmlDocument.CreateElement("date");
 
                 XmlText furnitureText = xmlDocument.CreateTextNode($"{s.FurnitureName}");
-                XmlText retailPriceText = xmlDocument.CreateTextNode($"{s.FurniturePrice}");
-                XmlText manufacturerText = xmlDocument.CreateTextNode($"{s.FurnitureManufacturer.ManufacturerName}");
-                XmlText typeText = xmlDocument.CreateTextNode($"{s.FurnitureType.TypeName}");
+                XmlText retailPriceText = xmlDocument.CreateTextNode($"{s.FurnitureRetailPrice}");
+                XmlText manufacturerText = xmlDocument.CreateTextNode($"{s.ManufacturerName}");
+                XmlText typeText = xmlDocument.CreateTextNode($"{s.TypeName}");
                 XmlText quantityText = xmlDocument.CreateTextNode($"{s.FurnitureSaledQuantity}");
-                XmlText totalCostText = xmlDocument.CreateTextNode($"{s.GetTotalCost()}");
+                XmlText totalCostText = xmlDocument.CreateTextNode($"{s.TotalCost}");
                 XmlText dateText = xmlDocument.CreateTextNode($"{s.SaleDate:d}");
 
                 furniture.AppendChild(furnitureText);
@@ -121,6 +122,9 @@ namespace FurnitureDBLibrary.DataAccess
                 xRoot.AppendChild(sale);
 
                 xmlDocument.Save("D:\\КурсоваяРабота\\CourseProgram\\FurnitureDBLibrary\\FurnitureShopReport.xml");
+                
+                
+                
 
             }
         }

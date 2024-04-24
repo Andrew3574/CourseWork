@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace FurnitureDBLibrary.Models.FurnitureTypes
+{
+    public interface ILounge
+    {
+        string TypeName { get; }
+
+        decimal TypeMarkup { get; }
+    }
+}

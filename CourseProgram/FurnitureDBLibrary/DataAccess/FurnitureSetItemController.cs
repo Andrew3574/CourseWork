@@ -1,5 +1,8 @@
 ﻿using FurnitureDBLibrary.Models;
+using FurnitureDBLibrary.Models.CurrentFurnitures;
+using FurnitureDBLibrary.Models.Furnitures;
 using FurnitureDBLibrary.Models.FurnitureSetItems;
+using FurnitureDBLibrary.Models.FurnitureTypes;
 using Npgsql;
 using System;
 using System.Collections.Generic;
@@ -9,18 +12,20 @@ using System.Threading.Tasks;
 
 namespace FurnitureDBLibrary.DataAccess
 {
-    public class FurnitureSetItemController : DBObjectController<FurnitureSetItem>
+    public class FurnitureSetItemController : DBObjectController<SetItems>
     {
         public FurnitureSetItemController() : base() { }
 
-        public override List<FurnitureSetItem> Read()
+        public override List<SetItems> Read()
         {
+            FurnitureController furnitureController = new FurnitureController();
+            List<Furniture> furnitures = furnitureController.Read();
             ManufacturerController manufacturerController = new ManufacturerController();
             List<Manufacturer> manufacturers = manufacturerController.Read();
             FurnitureTypeController furnitureTypeController = new FurnitureTypeController();
             List<FurnitureType> furnitureTypes = furnitureTypeController.Read();
 
-            List<FurnitureSetItem> furnitureSetItems = new List<FurnitureSetItem>();
+            List<SetItems> furnitureSetItems = new List<SetItems>();
             string command = $"select furniturename,furnitureprice,furniturequantity,furnituretypename,manufacturername,furnituresetname " +
                 $"from furnituresetitems " +
                 $"join furnitures on furnitures.furnitureid = furnituresetitems.furnitureid " +
@@ -34,94 +39,135 @@ namespace FurnitureDBLibrary.DataAccess
             _command.Parameters.Add(idParam);
 
             NpgsqlDataReader reader = _command.ExecuteReader();
-            if(reader.HasRows)
+            if (reader.HasRows)
             {
-                while(reader.Read())
+                while (reader.Read())
                 {
+                    List<Furniture> furnitureList = new List<Furniture>();
                     var type = furnitureTypes.Find(t => t.TypeName == reader.GetString(3));
                     var manufacturer = manufacturers.Find(m => m.ManufacturerName == reader.GetString(4));
 
                     switch (reader.GetString(5).ToLower())
                     {
-                        case "кухонный":
-                            furnitureSetItems.Add(new KitchenSetItem(reader.GetString(0),reader.GetDecimal(1),reader.GetInt32(2),type, manufacturer));
-                            break;
+                        case "кухонный":                            
+                            furnitureList = furnitures.FindAll(f => f.TypeName == "Кухонная");
+                            furnitureSetItems.Add(new KitchenSetItems(furnitureList));
+                        break;                    
 
                         case "спальный":
-                            furnitureSetItems.Add(new BedroomSetItem(reader.GetString(0), reader.GetDecimal(1), reader.GetInt32(2), type, manufacturer));
+                            furnitureList = furnitures.FindAll(f => f.TypeName == "Спальная");
+                            furnitureSetItems.Add(new BedroomSetItems(furnitureList));
                             break;
 
                         case "офисный":
-                            furnitureSetItems.Add(new OfficeSetItem(reader.GetString(0), reader.GetDecimal(1), reader.GetInt32(2), type, manufacturer));
+                            furnitureList = furnitures.FindAll(f => f.TypeName == "Офисная");
+                            furnitureSetItems.Add(new OfficeSetItems(furnitureList));
                             break;
 
                         case "гостинный":
-                            furnitureSetItems.Add(new LoungeSetItem(reader.GetString(0), reader.GetDecimal(1), reader.GetInt32(2), type, manufacturer));
+                            furnitureList = furnitures.FindAll(f => f.TypeName == "Гостинная");
+                            furnitureSetItems.Add(new LoungeSetItems(furnitureList));
                             break;
 
                         default:
                             throw new Exception("Магазин не реализует данный тип гарнитура");
-                            
+
                     }
-                }                
+                }
             }
 
             reader.Close();
             return furnitureSetItems;
         }
 
-        public override void Create(FurnitureSetItem model)
+        public override void Create(SetItems model)
         {
             int setId, furnitureId;
 
-            string command = $"select GetSetId('{model.FurnitureSetName}')";
-            _command.CommandText = command;
-            setId = Convert.ToInt32(_command.ExecuteScalar());
+            try
+            {
+                string command = $"select GetSetId('{model.SetName}')";
+                _command.CommandText = command;
+                setId = Convert.ToInt32(_command.ExecuteScalar());
 
-            command = $"select GetFurnitureId('{model.FurnitureName}')";
-            _command.CommandText = command;
-            furnitureId = Convert.ToInt32(_command.ExecuteScalar());
+                foreach (var item in model.FurnitureList)
+                {
+                    command = $"select GetFurnitureId('{item.FurnitureName}')";
+                    _command.CommandText = command;
+                    furnitureId = Convert.ToInt32(_command.ExecuteScalar());
 
-            command = $"insert into furnituresetitems values ({setId},{furnitureId});";
-            _command.CommandText = command;
-            _command.ExecuteNonQuery();
+                    command = $"insert into furnituresetitems values ({setId},{furnitureId});";
+                    _command.CommandText = command;
+                    _command.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }            
         
         }
 
-        public override void Delete(FurnitureSetItem model)
+        public override void Delete(SetItems model)
         {
             int setId, furnitureId;
 
-            string command = $"select GetSetId('{model.FurnitureSetName}')";
-            _command.CommandText = command;
-            setId = Convert.ToInt32(_command.ExecuteScalar());
+            try
+            {
+                string command = $"select GetSetId('{model.SetName}')";
+                _command.CommandText = command;
+                setId = Convert.ToInt32(_command.ExecuteScalar());
 
-            command = $"select GetFurnitureId('{model.FurnitureName}')";
-            _command.CommandText = command;
-            furnitureId = Convert.ToInt32(_command.ExecuteScalar());
+                foreach (var item in model.FurnitureList)
+                {
+                    command = $"select GetFurnitureId('{item.FurnitureName}')";
+                    _command.CommandText = command;
+                    furnitureId = Convert.ToInt32(_command.ExecuteScalar());
 
-            command = $"delete from furnituresetitems where furnituresetitemid = {setId} and where furnitureid = {furnitureId};";
-            _command.CommandText = command;
-            _command.ExecuteNonQuery();
+                    command = $"delete from furnituresetitems where furnituresetitemid = {setId} and where furnitureid = {furnitureId};";
+                    _command.CommandText = command;
+                    _command.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+            
         
         }
 
-        public override void Update(FurnitureSetItem model)
+        public override void Update(SetItems model)
         {
 
             int setId, furnitureId;
 
-            string command = $"select GetSetId('{model.FurnitureSetName}')";
-            _command.CommandText = command;
-            setId = Convert.ToInt32(_command.ExecuteScalar());
+            try
+            {
+                string command = $"select GetSetId('{model.SetName}')";
+                _command.CommandText = command;
+                setId = Convert.ToInt32(_command.ExecuteScalar());
 
-            command = $"select GetFurnitureId('{model.FurnitureName}')";
-            _command.CommandText = command;
-            furnitureId = Convert.ToInt32(_command.ExecuteScalar());
+                foreach (var item in model.FurnitureList)
+                {
+                    command = $"select GetFurnitureId('{item.FurnitureName}')";
+                    _command.CommandText = command;
+                    furnitureId = Convert.ToInt32(_command.ExecuteScalar());
 
-            command = $"update furnituresetitems set furnituresetid = {setId}, furnitureid = {furnitureId} where furnituresetitemid = {setId} and where furnitureid = {furnitureId};";
-            _command.CommandText = command;
-            _command.ExecuteNonQuery();
+                    command = $"update furnituresetitems set furnituresetid = {setId}, furnitureid = {furnitureId} where furnituresetitemid = {setId} and where furnitureid = {furnitureId};";
+                    _command.CommandText = command;
+                    _command.ExecuteNonQuery();
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+            
 
         }
 

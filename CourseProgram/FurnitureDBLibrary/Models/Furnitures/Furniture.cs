@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FurnitureDBLibrary.Models.FurnitureTypes;
+using FurnitureDBLibrary.Models.Manufacturers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -8,29 +10,35 @@ using System.Threading.Tasks;
 
 namespace FurnitureDBLibrary.Models
 {
-    public abstract class Furniture
+    public abstract class Furniture : IType, IManufacturer
     {
         private string _furnitureName;
         private decimal _furniturePrice;
         private int _furnitureQuantity;
-        private FurnitureType _furnitureType;
-        private Manufacturer _furnitureManufacturer;
         
-        public Furniture(string furnitureName, decimal furniturePrice, int furnitureQuantity, FurnitureType furnitureType, Manufacturer furnitureManufacturerName)
+        public Furniture(string furnitureName, decimal furniturePrice, int furnitureQuantity)
         {
             _furnitureName = furnitureName;
             _furniturePrice = furniturePrice;
             _furnitureQuantity = furnitureQuantity;
-            _furnitureType = furnitureType;
-            _furnitureManufacturer = furnitureManufacturerName;
-        }
+        } 
 
         public string FurnitureName { get { return _furnitureName; } }
         public decimal FurniturePrice { get { return _furniturePrice; } }
         public int FurnitureQuantity { get { return _furnitureQuantity; } set { _furnitureQuantity = value; } }
-        public FurnitureType FurnitureType { get { return _furnitureType; } }
-        public Manufacturer FurnitureManufacturer { get { return _furnitureManufacturer; } }
-        public abstract string FurnitureVariety { get; }        
 
+        public override string ToString()
+        {
+            return $"{FurnitureName}\t{GetRetailPrice():#.00}";
+        }
+
+        public abstract string TypeName { get; }
+        public abstract decimal TypeMarkup { get; }
+        public abstract string ManufacturerName { get; }
+        public abstract decimal ManufacturerMarkup { get; }
+        public abstract string FurnitureVariety { get; }
+        public abstract string FurnitureImage { get; }
+
+        public abstract decimal GetRetailPrice();
     }
 }

@@ -1,5 +1,7 @@
 ﻿using FurnitureDBLibrary.Models;
 using FurnitureDBLibrary.Models.CurrentFurnitures;
+using FurnitureDBLibrary.Models.Furnitures;
+using FurnitureDBLibrary.Models.FurnitureTypes;
 using Npgsql;
 using System;
 using System.Collections.Generic;
@@ -44,19 +46,59 @@ namespace FurnitureDBLibrary.DataAccess
                     switch (reader.GetString(5).ToLower())
                     {
                         case "стул":
-                            furnitures.Add(new Chair(reader.GetString(0), reader.GetDecimal(1), reader.GetInt32(2), type, manufacturer));
+
+                            switch (reader.GetString(3).ToLower())
+                            {
+                                case "кухонная":
+                                    furnitures.Add(new KitchenChair(reader.GetString(0), reader.GetDecimal(1), reader.GetInt32(2)));
+                                    break;
+
+                                case "офисная":
+                                    furnitures.Add(new OfficeChair(reader.GetString(0), reader.GetDecimal(1), reader.GetInt32(2)));
+                                    break;
+
+                            }
                             break;
 
                         case "стол":
-                            furnitures.Add(new Table(reader.GetString(0), reader.GetDecimal(1), reader.GetInt32(2), type, manufacturer));
-                                break;
+
+                            switch (reader.GetString(3).ToLower())
+                            {
+                                case "кухонная":
+                                    furnitures.Add(new KitchenTable(reader.GetString(0), reader.GetDecimal(1), reader.GetInt32(2)));
+                                    break;
+
+                                case "офисная":
+                                    furnitures.Add(new OfficeTable(reader.GetString(0), reader.GetDecimal(1), reader.GetInt32(2)));
+                                    break;
+
+                            }
+                            break;
 
                         case "шкаф":
-                            furnitures.Add(new Closet(reader.GetString(0), reader.GetDecimal(1), reader.GetInt32(2), type, manufacturer));
+
+                            switch (reader.GetString(3).ToLower())
+                            {
+                                case "спальная":
+                                    furnitures.Add(new BedroomCloset(reader.GetString(0), reader.GetDecimal(1), reader.GetInt32(2)));
+                                    break;
+
+                                case "офисная":
+                                    furnitures.Add(new OfficeCloset(reader.GetString(0), reader.GetDecimal(1), reader.GetInt32(2)));
+                                    break;
+
+                            }
                             break;
 
                         case "диван":
-                            furnitures.Add(new Sofa(reader.GetString(0), reader.GetDecimal(1), reader.GetInt32(2), type, manufacturer));
+
+                            switch (reader.GetString(3).ToLower())
+                            {
+                                case "гостинная":
+                                    furnitures.Add(new LoungeSofa(reader.GetString(0), reader.GetDecimal(1), reader.GetInt32(2)));
+                                    break;
+
+                            }
                             break;
 
                         default:
@@ -74,11 +116,11 @@ namespace FurnitureDBLibrary.DataAccess
             short typeId, manufactId;
             int varietyId;
 
-            string command = $"select GetTypeId('{model.FurnitureType.TypeName}')";
+            string command = $"select GetTypeId('{model.TypeName}')";
             _command.CommandText = command;
             typeId = Convert.ToInt16(_command.ExecuteScalar());
 
-            command = $"select GetManufacturerId('{model.FurnitureManufacturer.ManufacturerName}')";
+            command = $"select GetManufacturerId('{model.ManufacturerName}')";
             _command.CommandText = command;
             manufactId = Convert.ToInt16(_command.ExecuteScalar());
 
@@ -105,11 +147,11 @@ namespace FurnitureDBLibrary.DataAccess
         {
             short typeId, manufactId;
 
-            string command = $"select GetTypeId('{model.FurnitureType.TypeName}')";
+            string command = $"select GetTypeId('{model.TypeName}')";
             _command.CommandText = command;
             typeId = Convert.ToInt16(_command.ExecuteScalar());
 
-            command = $"select GetManufacturerId('{model.FurnitureManufacturer.ManufacturerName}')";
+            command = $"select GetManufacturerId('{model.ManufacturerName}')";
             _command.CommandText = command;
             manufactId = Convert.ToInt16(_command.ExecuteScalar());
 
@@ -117,6 +159,17 @@ namespace FurnitureDBLibrary.DataAccess
             _command.CommandText= command;
             _command.ExecuteNonQuery();
         
-        }       
+        } 
+        
+        public List<string> GetVarieties(List<Furniture> furnitures)
+        {
+            List<string> list = new List<string>();
+            foreach (Furniture furniture in furnitures)
+            {
+                list.Add(furniture.FurnitureVariety.ToString());
+            }
+
+            return list;
+        }
     }
 }

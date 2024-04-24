@@ -8,6 +8,6 @@ namespace FurnitureDBLibrary.Models.FurnitureTypes
 {
     public class BedroomType : FurnitureType
     {
-        public BedroomType(string typeName, decimal typeMarkup) : base(typeName, typeMarkup) { }
+        public BedroomType(string typeName, decimal typeMarkup) : base(typeName,typeMarkup){ }
     }
 }

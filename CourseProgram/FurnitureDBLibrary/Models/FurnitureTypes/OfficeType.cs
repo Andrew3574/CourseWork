@@ -8,8 +8,6 @@ namespace FurnitureDBLibrary.Models.FurnitureTypes
 {
     public class OfficeType : FurnitureType
     {
-        public OfficeType(string typeName,decimal typeMarkup) : base(typeName,typeMarkup) { }
-
-
+        public OfficeType(string typeName, decimal typeMarkup) : base(typeName, typeMarkup) { }
     }
 }
