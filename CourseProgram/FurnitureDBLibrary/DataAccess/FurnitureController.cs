@@ -24,7 +24,7 @@ namespace FurnitureDBLibrary.DataAccess
 
             List<Furniture> furnitures = new List<Furniture>();
 
-            string command = "select furniturename,furnitureprice,furniturequantity,furnituretypename,manufacturername,varietyname from furnitures " +
+            string command = "select furniturename,furnitureprice,furniturequantity,furnituretypename,manufacturername,varietyname,image,furnituretypemarkup,manufacturermarkup from furnitures " +
                 "join furnituretypes on furnitures.furnituretypeid = furnituretypes.furnituretypeid " +
                 "join manufacturers on manufacturers.manufacturerid = furnitures.manufacturerid " +
                 "join furniturevarieties on furniturevarieties.varietyid = furnitures.varietyid order by @param;";
@@ -50,7 +50,13 @@ namespace FurnitureDBLibrary.DataAccess
                             switch (reader.GetString(3).ToLower())
                             {
                                 case "кухонная":
-                                    furnitures.Add(new KitchenChair(reader.GetString(0), reader.GetDecimal(1), reader.GetInt32(2)));
+                                    Furniture kitchenChair = new KitchenChair(reader.GetString(0), reader.GetDecimal(1), reader.GetInt32(2));
+                                    kitchenChair.TypeName = reader.GetString(3);
+                                    kitchenChair.TypeMarkup = reader.GetDecimal(7);
+                                    kitchenChair.ManufacturerName = reader.GetString(4);
+                                    kitchenChair.ManufacturerMarkup = reader.GetDecimal(8);
+                                    kitchenChair.FurnitureImage = reader.GetString(6);
+                                    furnitures.Add(kitchenChair);
                                     break;
 
                                 case "офисная":
@@ -94,7 +100,7 @@ namespace FurnitureDBLibrary.DataAccess
 
                             switch (reader.GetString(3).ToLower())
                             {
-                                case "гостинная":
+                                case "гостиная":
                                     furnitures.Add(new LoungeSofa(reader.GetString(0), reader.GetDecimal(1), reader.GetInt32(2)));
                                     break;
 

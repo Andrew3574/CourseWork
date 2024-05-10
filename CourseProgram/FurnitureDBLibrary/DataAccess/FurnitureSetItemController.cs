@@ -2,6 +2,7 @@
 using FurnitureDBLibrary.Models.CurrentFurnitures;
 using FurnitureDBLibrary.Models.Furnitures;
 using FurnitureDBLibrary.Models.FurnitureSetItems;
+using FurnitureDBLibrary.Models.FurnitureSets;
 using FurnitureDBLibrary.Models.FurnitureTypes;
 using Npgsql;
 using System;
@@ -15,6 +16,8 @@ namespace FurnitureDBLibrary.DataAccess
     public class FurnitureSetItemController : DBObjectController<SetItems>
     {
         public FurnitureSetItemController() : base() { }
+
+        private FurnitureSetCreator creator;
 
         public override List<SetItems> Read()
         {
@@ -49,24 +52,29 @@ namespace FurnitureDBLibrary.DataAccess
 
                     switch (reader.GetString(5).ToLower())
                     {
-                        case "кухонный":                            
-                            furnitureList = furnitures.FindAll(f => f.TypeName == "Кухонная");
-                            furnitureSetItems.Add(new KitchenSetItems(furnitureList));
+                        case "кухонный":
+                            creator = new KitchenSetCreator();
+                            furnitureSetItems.Add(new KitchenSetItems(creator.Creator(furnitures)));
                         break;                    
 
                         case "спальный":
-                            furnitureList = furnitures.FindAll(f => f.TypeName == "Спальная");
-                            furnitureSetItems.Add(new BedroomSetItems(furnitureList));
+                            creator = new BedroomSetCreator();
+                            furnitureSetItems.Add(new BedroomSetItems(creator.Creator(furnitures)));
                             break;
 
                         case "офисный":
-                            furnitureList = furnitures.FindAll(f => f.TypeName == "Офисная");
-                            furnitureSetItems.Add(new OfficeSetItems(furnitureList));
+                            creator = new OfficeSetCreator();
+                            furnitureSetItems.Add(new OfficeSetItems(creator.Creator(furnitures)));
                             break;
 
-                        case "гостинный":
-                            furnitureList = furnitures.FindAll(f => f.TypeName == "Гостинная");
-                            furnitureSetItems.Add(new LoungeSetItems(furnitureList));
+                        case "гостиный":
+                            creator = new LoungeSetCreator();
+                            furnitureSetItems.Add(new LoungeSetItems(creator.Creator(furnitures)));
+                            break;
+
+                        case "особый":
+                            creator = new SpecificSetCreator();
+                            furnitureSetItems.Add(new SpecificSetItems(creator.Creator(furnitures)));
                             break;
 
                         default:

@@ -95,10 +95,10 @@
                         <ComboBox x:Name="FurnitureVarietyComboBox" />
                     </StackPanel>
 
-                    <Button x:Name="RefreshFurnitureLBButton" Content="Обновить перечень" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="612,254,0,0" Height="37" Width="156" Click="RefreshFurnitureLBButton_Click"/>
-                    <Button x:Name="DeleteFurnitureButton" Content="Убрать позицию" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="612,0,0,182" Height="37" Width="156" Click="DeleteFurnitureButton_Click"/>
-                    <Button x:Name="UpdateFurnitureButton" Content="Редактировать позицию" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="612,0,0,238" Height="37" Width="156" Click="UpdateFurnitureButton_Click"/>
-                    <Button x:Name="AddFurnitureButton" Content="Добавить позицию" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="612,0,0,295" Height="37" Width="156" Click="AddFurnitureButton_Click"/>
+                    <Button x:Name="RefreshFurnitureLBButton" Content="Обновить перечень" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="529,251,0,0" Height="37" Width="156" Click="RefreshFurnitureLBButton_Click"/>
+                    <Button x:Name="DeleteFurnitureButton" Content="Убрать позицию" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="529,0,0,0" Height="37" Width="156" Click="DeleteFurnitureButton_Click"/>
+                    <Button x:Name="UpdateFurnitureButton" Content="Редактировать позицию" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="529,0,0,241" Height="37" Width="156" Click="UpdateFurnitureButton_Click"/>
+                    <Button x:Name="AddFurnitureButton" Content="Добавить позицию" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="529,0,0,298" Height="37" Width="156" Click="AddFurnitureButton_Click"/>
                 </Grid>
             </TabItem>
         </TabControl>

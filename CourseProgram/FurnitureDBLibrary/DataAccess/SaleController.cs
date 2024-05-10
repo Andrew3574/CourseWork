@@ -34,7 +34,6 @@ namespace FurnitureDBLibrary.DataAccess
 
                     sales.Add(new Sale(reader.GetString(0), reader.GetDecimal(1), manufacturer.ManufacturerName, type.TypeName, reader.GetInt32(4), reader.GetDateTime(5)));
                 }
-                
             }
 
             reader.Close();

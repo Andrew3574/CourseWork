@@ -2,6 +2,7 @@
 using FurnitureDBLibrary.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ namespace FurnitureShopWPF
         List<Furniture> furnitureList = new List<Furniture>();
         List<Sale> saleList = new List<Sale>();
         List<Sale> currentSaleList = new List<Sale>();
+        ObservableCollection<Sale> sales;
         Sale currentSale;
         Sale selectedSale;
         decimal totalCost = 0;
@@ -31,13 +33,13 @@ namespace FurnitureShopWPF
         SaleController SaleController = new SaleController();
         FurnitureController FurnitureController = new FurnitureController();
 
-        public CartWindow(List<Furniture> furnitures)
+        public CartWindow(List<Furniture> _furnitureList)
         {
-            furnitureList = furnitures;
             saleList = SaleController.Read();
             InitializeComponent();
             currentSaleList = new List<Sale>();
-            foreach (var item in furnitures)
+            furnitureList = _furnitureList;
+            foreach (var item in furnitureList)
             {
                 if (item.FurnitureQuantity > 0)
                 {
@@ -46,14 +48,14 @@ namespace FurnitureShopWPF
                     
                     if (sale == null)
                     {
-                        currentSale = new Sale(item.FurnitureName, item.FurniturePrice, item.TypeName, item.ManufacturerName, 1, DateTime.Today);
+                        currentSale = new Sale(item.FurnitureName, item.GetRetailPrice(), item.TypeName, item.ManufacturerName, 1, DateTime.Today);
                         currentSaleList.Add(currentSale);
                     }
                     else
                     {
                         if (sale.FurnitureSaledQuantity != item.FurnitureQuantity)
                         {
-                            currentSale = new Sale(item.FurnitureName, item.FurniturePrice, item.TypeName, item.ManufacturerName, ++sale.FurnitureSaledQuantity, DateTime.Today);
+                            currentSale = new Sale(item.FurnitureName, item.GetRetailPrice(), item.TypeName, item.ManufacturerName, ++sale.FurnitureSaledQuantity, DateTime.Today);
                         }
                     }
 
@@ -65,7 +67,8 @@ namespace FurnitureShopWPF
             }
 
             CartTotalCostTextBlock.Text += totalCost.ToString();
-            CartDisplay.ItemsSource = currentSaleList;
+            sales = new ObservableCollection<Sale>(currentSaleList);
+            CartDisplay.ItemsSource = sales;
         }
 
         private void ReturnToMainButton_Click(object sender, RoutedEventArgs e)
@@ -77,7 +80,7 @@ namespace FurnitureShopWPF
         {
             if (currentSaleList.Count != 0 && furnitureList.Count != 0)
             {
-                foreach (Sale sale in currentSaleList)
+                foreach (Sale sale in sales)
                 {
                     var curFurniture = furnitureList.Find(f => f.FurnitureName == sale.FurnitureName);
                     curFurniture.FurnitureQuantity -= sale.FurnitureSaledQuantity;
@@ -110,14 +113,26 @@ namespace FurnitureShopWPF
 
         private void RemoveCartItem_Click(object sender, RoutedEventArgs e)
         {
+            totalCost = 0;
+            CartTotalCostTextBlock.Text = "";
+
             if (CartDisplay.SelectedIndex != -1)
             {
                 if (selectedSale.FurnitureSaledQuantity != 0)
                 {
-                    var curSale = currentSaleList.Find(s => s.FurnitureName == selectedSale.FurnitureName && s.SaleDate == selectedSale.SaleDate);
-                    curSale.FurnitureSaledQuantity = --selectedSale.FurnitureSaledQuantity;
-                    CartDisplay.ItemsSource = currentSaleList;
+                    selectedSale.FurnitureSaledQuantity = --selectedSale.FurnitureSaledQuantity;
+
+                    CartDisplay.Items.Refresh();
                 }
+
+                foreach (var item in currentSaleList)
+                {
+                    Sale sale = currentSaleList.Find(s => s.FurnitureName == item.FurnitureName);
+
+                    totalCost += sale.FurnitureRetailPrice * sale.FurnitureSaledQuantity;
+                }
+
+                CartTotalCostTextBlock.Text += totalCost.ToString("0.00");
             }
         }
     }

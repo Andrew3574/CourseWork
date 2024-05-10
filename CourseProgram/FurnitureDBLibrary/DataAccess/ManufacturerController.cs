@@ -38,6 +38,10 @@ namespace FurnitureDBLibrary.DataAccess
                             manufacturers.Add(new Mozirles(reader.GetString(0), reader.GetDecimal(1)));
                             break;
 
+                        case "Особый":
+                            manufacturers.Add(new SpecificManufacturer(reader.GetString(0), reader.GetDecimal(1)));
+                            break;
+
                         default:
                             throw new Exception("Магазин не сотрудничает с данным производителем");
 

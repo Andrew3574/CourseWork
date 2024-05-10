@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="FurnitureDBLibrary.Models.CurrentFurnitures.BedroomCloset" Collapsed="true">
+    <Position X="3.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACACAAAAAAAAQAAAAAAAAICAAAAABAAAAAIAAAAAAA=</HashCode>
+      <FileName>Models\Furnitures\BedroomCloset.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FurnitureDBLibrary.Models.CurrentFurnitures.KitchenChair" Collapsed="true">
+    <Position X="6" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACACAAAAAAAAQAAAAAAAAICAAAAABAAAAAIAAAAAAA=</HashCode>
+      <FileName>Models\Furnitures\KitchenChair.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FurnitureDBLibrary.Models.CurrentFurnitures.LoungeSofa" Collapsed="true">
+    <Position X="8.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACACAAAAAAAAQAAAAAAAAICAAAAABAAAAAIAAAAAAA=</HashCode>
+      <FileName>Models\Furnitures\LoungeSofa.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FurnitureDBLibrary.Models.CurrentFurnitures.OfficeTable" Collapsed="true">
+    <Position X="10.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACACAAAAAAAAQAAAAAAAAICAAAAABAAAAAIAAAAAAA=</HashCode>
+      <FileName>Models\Furnitures\OfficeTable.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FurnitureDBLibrary.Models.Furniture" Collapsed="true">
+    <Position X="10.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAKECAAAAAAAAQAMAAAJAAICAAAAABAAAAAIAAAAAAA=</HashCode>
+      <FileName>Models\Furnitures\Furniture.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FurnitureDBLibrary.Models.FurnitureSet" Collapsed="true">
+    <Position X="20.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Models\FurnitureSet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FurnitureDBLibrary.Models.KitchenSetItems" Collapsed="true">
+    <Position X="10.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Models\FurnitureSetItems\KitchenSetItems.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FurnitureDBLibrary.Models.SetItems" Collapsed="true">
+    <Position X="6.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAEAAABAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Models\FurnitureSetItems\SetItems.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FurnitureDBLibrary.Models.Manufacturer" Collapsed="true">
+    <Position X="15.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAQAIAAAAAAAAAAAAIQAAAAAA=</HashCode>
+      <FileName>Models\Manufacturers\Manufacturer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FurnitureDBLibrary.Models.Sale" Collapsed="true">
+    <Position X="22.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ARAAAEAAEAAAAAANAAAIAAIAEAAAABAAAAAAQAEAAAE=</HashCode>
+      <FileName>Models\Sale.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FurnitureDBLibrary.Models.Furnitures.KitchenTable" Collapsed="true">
+    <Position X="12.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACACAAAAAAAAQAAAAAAAAICAAAAABAAAAAIAAAAAAA=</HashCode>
+      <FileName>Models\Furnitures\KitchenTable.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FurnitureDBLibrary.Models.Furnitures.OfficeChair" Collapsed="true">
+    <Position X="15" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACACAAAAAAAAQAAAAAAAAICAAAAABAAAAAIAAAAAAA=</HashCode>
+      <FileName>Models\Furnitures\OfficeChair.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FurnitureDBLibrary.Models.Furnitures.OfficeCloset" Collapsed="true">
+    <Position X="17.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACACAAAAAAAAQAAAAAAAAICAAAAABAAAAAIAAAAAAA=</HashCode>
+      <FileName>Models\Furnitures\OfficeCloset.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FurnitureDBLibrary.Models.Furnitures.KitchenSetCreator" Collapsed="true">
+    <Position X="8" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Models\FurnitureSets\KitchenSetCreator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FurnitureDBLibrary.Models.FurnitureSetItems.BedroomSetItems" Collapsed="true">
+    <Position X="3.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Models\FurnitureSetItems\BedroomSetItems.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FurnitureDBLibrary.Models.FurnitureSetItems.LoungeSetItems" Collapsed="true">
+    <Position X="5.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Models\FurnitureSetItems\LoungeSetItems.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FurnitureDBLibrary.Models.FurnitureSetItems.OfficeSetItems" Collapsed="true">
+    <Position X="8" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Models\FurnitureSetItems\OfficeSetItems.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FurnitureDBLibrary.Models.FurnitureSetItems.FurnitureSetCreator" Collapsed="true">
+    <Position X="6.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Models\FurnitureSets\FurnitureSetCreator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FurnitureDBLibrary.Models.FurnitureSets.BedroomSetCreator" Collapsed="true">
+    <Position X="5.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Models\FurnitureSets\BedroomSetCreator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FurnitureDBLibrary.Models.FurnitureSets.LoungeSetCreator" Collapsed="true">
+    <Position X="10.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Models\FurnitureSets\LoungeSetCreator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FurnitureDBLibrary.Models.FurnitureSets.OfficeSetCreator" Collapsed="true">
+    <Position X="3.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Models\FurnitureSets\OfficeSetCreator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FurnitureDBLibrary.Models.FurnitureTypes.BedroomType" Collapsed="true">
+    <Position X="3.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\FurnitureTypes\BedroomType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FurnitureDBLibrary.Models.FurnitureTypes.FurnitureType" Collapsed="true">
+    <Position X="6.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAFAAAAAAAAAAAAABAAAAAQAAAAAAA=</HashCode>
+      <FileName>Models\FurnitureTypes\FurnitureType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FurnitureDBLibrary.Models.FurnitureTypes.KitchenType" Collapsed="true">
+    <Position X="5.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\FurnitureTypes\KitchenType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FurnitureDBLibrary.Models.FurnitureTypes.LoungeType" Collapsed="true">
+    <Position X="8" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\FurnitureTypes\LoungeType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FurnitureDBLibrary.Models.FurnitureTypes.Specific" Collapsed="true">
+    <Position X="10.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\FurnitureTypes\Specific.cs</FileName>
+      <NewMemberFileName>Models\FurnitureTypes\OfficeType.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FurnitureDBLibrary.Models.Manufacturers.Delcom" Collapsed="true">
+    <Position X="18" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Manufacturers\Delcom.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FurnitureDBLibrary.Models.Manufacturers.Mozirles" Collapsed="true">
+    <Position X="13.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Manufacturers\Mozirles.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FurnitureDBLibrary.Models.Manufacturers.Rechicadrev" Collapsed="true">
+    <Position X="15.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Manufacturers\Rechicadrev.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="FurnitureDBLibrary.Models.FurnitureSetItems.ISet" Collapsed="true">
+    <Position X="20.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Models\FurnitureSets\ISet.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FurnitureDBLibrary.Models.FurnitureTypes.IBedroom" Collapsed="true">
+    <Position X="20.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\FurnitureTypes\IBedroom.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FurnitureDBLibrary.Models.FurnitureTypes.IKitchen" Collapsed="true">
+    <Position X="24" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\FurnitureTypes\IKitchen.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FurnitureDBLibrary.Models.FurnitureTypes.ILounge" Collapsed="true">
+    <Position X="25.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\FurnitureTypes\ILounge.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FurnitureDBLibrary.Models.FurnitureTypes.IOffice" Collapsed="true">
+    <Position X="24" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\FurnitureTypes\IOffice.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FurnitureDBLibrary.Models.FurnitureTypes.IType" Collapsed="true">
+    <Position X="22.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\FurnitureTypes\IType.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FurnitureDBLibrary.Models.Manufacturers.IDelcom" Collapsed="true">
+    <Position X="22.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Models\Manufacturers\IDelcom.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FurnitureDBLibrary.Models.Manufacturers.IManufacturer" Collapsed="true">
+    <Position X="20.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Models\Manufacturers\IManufacturer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FurnitureDBLibrary.Models.Manufacturers.IMozirles" Collapsed="true">
+    <Position X="22.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Models\Manufacturers\IMozirles.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="FurnitureDBLibrary.Models.Manufacturers.IRechicadrev" Collapsed="true">
+    <Position X="25.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Models\Manufacturers\IRechicadrev.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -7,29 +7,31 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="CartWindow" Height="350" Width="550">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="0*"/>
-        </Grid.ColumnDefinitions>
-        <TextBlock Text="Ваша корзина" FontWeight="DemiBold" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Margin="108,10,0,0" Width="109"/>
-        <ListView x:Name="CartDisplay" Margin="108,29,29,110" SelectionChanged="CartDisplay_SelectionChanged">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=FurnitureSaledQuantity}" Header="Количество"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=FurnitureName}" Width="140" Header="Название мебели"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=FurnitureRetailPrice}"  Width="70" Header="Цена"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=TotalCost}" Width="90" Header="Общая цена"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <TabControl>
+        <TabItem>
+            <Grid>
+                <TextBlock Text="Ваша корзина" FontWeight="DemiBold" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Margin="108,10,0,0" Width="109"/>
+                <ListView x:Name="CartDisplay" Margin="108,29,29,110" SelectionChanged="CartDisplay_SelectionChanged">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn  DisplayMemberBinding="{Binding Path=FurnitureSaledQuantity}" Header="Количество"/>
+                            <GridViewColumn  DisplayMemberBinding="{Binding Path=FurnitureName}" Width="140" Header="Название мебели"/>
+                            <GridViewColumn  DisplayMemberBinding="{Binding Path=FurnitureRetailPrice}"  Width="70" Header="Цена"/>
+                            <GridViewColumn  DisplayMemberBinding="{Binding Path=TotalCost}" Width="90" Header="Общая цена"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
 
-        <Label Content="Итого:" FontSize="14" FontWeight="DemiBold" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="27" Width="54" Margin="0,0,90,51"/>
-        <TextBlock x:Name="CartTotalCostTextBlock" FontSize="14" FontWeight="DemiBold" TextAlignment="Right" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="27" Width="96" Margin="0,0,29,46"/>
-        <Button x:Name="ReturnToMainButton" FontStyle="Oblique" Content="Главная" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,81,0,0" Height="29" Width="93" Click="ReturnToMainButton_Click"/>
-        <Button x:Name="BuyButton" FontStyle="Oblique" Content="Оплатить" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="29" Width="96" Margin="0,0,29,10" Click="BuyButton_Click"/>
-        <Button x:Name="RemoveCartItem" FontStyle="Oblique" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,29,0,0" Height="36" Width="93" Click="RemoveCartItem_Click">
-            <TextBlock Text="Убрать мебель" TextAlignment="Center" TextWrapping="Wrap" Width="88"/>
-        </Button>
-    </Grid>
+                <Label Content="Итого:" FontSize="14" FontWeight="DemiBold" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="27" Width="54" Margin="0,0,90,51"/>
+                <TextBlock x:Name="CartTotalCostTextBlock" FontSize="14" FontWeight="DemiBold" TextAlignment="Right" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="27" Width="96" Margin="0,0,29,46"/>
+                <Button x:Name="ReturnToMainButton" FontStyle="Oblique" Content="Главная" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,81,0,0" Height="29" Width="93" Click="ReturnToMainButton_Click"/>
+                <Button x:Name="BuyButton" FontStyle="Oblique" Content="Оплатить" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="29" Width="96" Margin="0,0,29,10" Click="BuyButton_Click"/>
+                <Button x:Name="RemoveCartItem" FontStyle="Oblique" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,29,0,0" Height="36" Width="93" Click="RemoveCartItem_Click">
+                <TextBlock Text="Убрать мебель" TextAlignment="Center" TextWrapping="Wrap" Width="88"/>
+                </Button>
+            </Grid>
+        </TabItem>
+       
+    </TabControl>
+       
 </Window>

@@ -32,12 +32,12 @@ namespace FurnitureDBLibrary.Models
             return $"{FurnitureName}\t{GetRetailPrice():#.00}";
         }
 
-        public abstract string TypeName { get; }
-        public abstract decimal TypeMarkup { get; }
-        public abstract string ManufacturerName { get; }
-        public abstract decimal ManufacturerMarkup { get; }
-        public abstract string FurnitureVariety { get; }
-        public abstract string FurnitureImage { get; }
+        public abstract string TypeName { get; set; }
+        public abstract decimal TypeMarkup { get; set; }
+        public abstract string ManufacturerName { get; set; }
+        public abstract decimal ManufacturerMarkup { get; set; }
+        public abstract string FurnitureVariety { get; set; }
+        public abstract string FurnitureImage { get; set; }
 
         public abstract decimal GetRetailPrice();
     }

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="FurnitureShopUnitTests.FurnitureSetTests">
+    <Position X="1.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAABABAkCAQAAAAAAAAA=</HashCode>
+      <FileName>FurnitureSetTests.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FurnitureShopUnitTests.FurnitureTests">
+    <Position X="3.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAQAAAAAKAAAAAABAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>FurnitureTests.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FurnitureShopUnitTests.FurnitureTypeTests">
+    <Position X="5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQCAAAAAAAAAAAAAAABAAAAAAAAAAAAQAAAiAAAAA=</HashCode>
+      <FileName>FurnitureTypeTests.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FurnitureShopUnitTests.ManufacturerTests">
+    <Position X="6.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAQACAiAAAQA=</HashCode>
+      <FileName>ManufacturerTests.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

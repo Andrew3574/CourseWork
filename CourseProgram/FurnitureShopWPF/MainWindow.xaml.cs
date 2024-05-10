@@ -7,6 +7,7 @@ using FurnitureDBLibrary.Models.FurnitureTypes;
 using FurnitureDBLibrary.UserModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
@@ -25,7 +26,7 @@ namespace FurnitureShopWPF
         Furniture _currentFurniture;
         FurnitureSet _currentFurnitureSet;
         List<Furniture> _furnitures;
-        List<Furniture> _furnitureList = new List<Furniture>();
+         List<Furniture> _furnitureList = new List<Furniture>();
         List<Manufacturer> _manufacturers;
         List<FurnitureType> _furnitureTypes;
         List<FurnitureSet> _furnitureSets;
@@ -102,6 +103,7 @@ namespace FurnitureShopWPF
         {
             _furnitureList.Add(_currentFurniture);
 
+            --_currentFurniture.FurnitureQuantity;
         }
 
         private void LoginWindow_Click(object sender, RoutedEventArgs e)
@@ -300,6 +302,7 @@ namespace FurnitureShopWPF
             }
         }
 
+
         private void DeleteFurnitureButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -314,6 +317,7 @@ namespace FurnitureShopWPF
                 MessageBox.Show("Ошибка указания товара!");
             }
         }
+
 
         private void RefreshFurnitureLBButton_Click(object sender, RoutedEventArgs e)
         {
@@ -383,7 +387,6 @@ namespace FurnitureShopWPF
         private void CartButton_Click(object sender, RoutedEventArgs e)
         {
             CartWindow cartWindow = new CartWindow(_furnitureList);
-            _furnitureList.Clear();
             cartWindow.Show();
         }
 
@@ -391,8 +394,6 @@ namespace FurnitureShopWPF
         {
             if (!isReLogined)
                 DBConnection.GetInstance.CloseConnection();
-        }
-
-       
+        }       
     }
 }

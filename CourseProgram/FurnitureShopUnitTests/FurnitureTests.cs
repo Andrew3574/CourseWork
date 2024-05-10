@@ -5,6 +5,8 @@ using FurnitureDBLibrary;
 using System;
 using Npgsql;
 using FurnitureDBLibrary.Models.CurrentFurnitures;
+using FurnitureDBLibrary.Models.Furnitures;
+using System.Collections.Generic;
 
 namespace FurnitureShopUnitTests
 {
@@ -13,40 +15,54 @@ namespace FurnitureShopUnitTests
     {
         readonly FurnitureController furnitureController = new FurnitureController();
 
-        [TestMethod]
-        public void FurnitureReadTest()
-        {
-            /*Table table = new Table("Обеденный стол", 2100, 46, "Кухонная", "ООО «ДЕЛКОМ40»");*/
-            Assert.AreEqual(furnitureController.Read()[0].FurnitureQuantity, 46);
-        }
+        Furniture newFurniture = new KitchenTable("Тестовый стол", 2100, 22);
 
-        /*[TestMethod]
+        [TestMethod]
         public void FurnitureCreateTests()
         {
-            Furniture newFurniture = new Furniture(11, "Кровать", 2100, 34, 3, 2);
+            if (furnitureController.Read().Find(f => f.FurnitureName == "Тестовый стол") != null)
+                furnitureController.Delete(newFurniture);
+
             furnitureController.Create(newFurniture);
-            furnitureController.Delete(newFurniture);
         }
 
         [TestMethod]
         public void FurnitureUpdateTest()
         {
-            Furniture newFurniture = new Furniture(1, "Обеденный стол", 2100, 10, 2, 1)
-            {
-                FurnitureQuantity = 999
-            };
+            if (furnitureController.Read().Find(f => f.FurnitureName == "Тестовый стол") != null)
+                furnitureController.Delete(newFurniture);
+
+            furnitureController.Create(newFurniture);
+            int expected = 33;
+            newFurniture.FurnitureQuantity = 33;
             furnitureController.Update(newFurniture);
+            Assert.AreEqual(expected, furnitureController.Read().Find(type => type.FurnitureName == "Тестовый стол").FurnitureQuantity);
+            furnitureController.Delete(newFurniture);
         }
+
+        [TestMethod]
+        public void FurnitureReadTest()
+        {
+            if (furnitureController.Read().Find(f => f.FurnitureName == "Тестовый стол") != null)
+                furnitureController.Delete(newFurniture);
+
+            furnitureController.Create(newFurniture);
+            int expected = 22;
+            Furniture furniture = furnitureController.Read().Find(f => f.FurnitureName == "Тестовый стол");
+            Assert.AreEqual(expected, furniture.FurnitureQuantity);
+            furnitureController.Delete(newFurniture);
+        }
+
 
         [TestMethod]
         public void FurnitureDeleteTest()
         {
-            Furniture newFurniture = new Furniture(11, "Кровать", 2100, 34, 3, 2);
-            furnitureController.Create(newFurniture);
-            newFurniture = new Furniture(11, "Кровать", 2100, 999, 3, 2);
-            furnitureController.Delete(newFurniture);
-        }*/
 
+            if (furnitureController.Read().Find(f => f.FurnitureName == "Тестовый стол") == null)
+                furnitureController.Create(newFurniture);
+
+            furnitureController.Delete(newFurniture);
+        }
 
     }
 }

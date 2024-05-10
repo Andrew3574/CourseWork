@@ -13,6 +13,6 @@ namespace FurnitureDBLibrary.Models.FurnitureSetItems
         public LoungeSetItems(List<Furniture> furnitures)
             : base(furnitures) { }
 
-        public override string SetName { get { return "Гостинный"; } }
+        public override string SetName { get { return "Гостиный"; } }
     }
 }

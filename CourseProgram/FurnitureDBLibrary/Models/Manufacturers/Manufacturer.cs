@@ -18,7 +18,7 @@ namespace FurnitureDBLibrary.Models
         }
 
         public string ManufacturerName { get { return _manufacturerName; } }    
-        public decimal ManufacturerMarkup { get { return _manufacturerMarkup; } }
+        public decimal ManufacturerMarkup { get { return _manufacturerMarkup; } set { _manufacturerMarkup = value; } }
 
         public override string ToString()
         {

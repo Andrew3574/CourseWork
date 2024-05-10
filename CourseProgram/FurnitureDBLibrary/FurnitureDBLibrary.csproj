@@ -100,9 +100,16 @@
     <Compile Include="DataAccess\SaleController.cs" />
     <Compile Include="DataAccess\UserController.cs" />
     <Compile Include="DBConnection.cs" />
-    <Compile Include="Models\FurnitureSetItems\ISet.cs" />
+    <Compile Include="Models\FurnitureSetItems\SpecificSetItems.cs" />
+    <Compile Include="Models\FurnitureSets\BedroomSetCreator.cs" />
+    <Compile Include="Models\FurnitureSets\FurnitureSetCreator.cs" />
+    <Compile Include="Models\FurnitureSets\ISet.cs" />
+    <Compile Include="Models\FurnitureSets\LoungeSetCreator.cs" />
+    <Compile Include="Models\FurnitureSets\OfficeSetCreator.cs" />
+    <Compile Include="Models\FurnitureSets\SpecificSetCreator.cs" />
     <Compile Include="Models\Furnitures\KitchenChair.cs" />
     <Compile Include="Models\Furnitures\BedroomCloset.cs" />
+    <Compile Include="Models\FurnitureSets\KitchenSetCreator.cs" />
     <Compile Include="Models\Furnitures\KitchenTable.cs" />
     <Compile Include="Models\Furnitures\OfficeChair.cs" />
     <Compile Include="Models\Furnitures\OfficeCloset.cs" />
@@ -122,6 +129,7 @@
     <Compile Include="Models\FurnitureTypes\KitchenType.cs" />
     <Compile Include="Models\FurnitureTypes\LoungeType.cs" />
     <Compile Include="Models\FurnitureTypes\OfficeType.cs" />
+    <Compile Include="Models\FurnitureTypes\Specific.cs" />
     <Compile Include="Models\Manufacturers\Delcom.cs" />
     <Compile Include="Models\Manufacturers\IDelcom.cs" />
     <Compile Include="Models\Manufacturers\IManufacturer.cs" />
@@ -129,6 +137,7 @@
     <Compile Include="Models\Manufacturers\IRechicadrev.cs" />
     <Compile Include="Models\Manufacturers\Mozirles.cs" />
     <Compile Include="Models\Manufacturers\Rechicadrev.cs" />
+    <Compile Include="Models\Manufacturers\SpecificManufacturer.cs" />
     <Compile Include="Models\Sale.cs" />
     <Compile Include="UserModels\Admin.cs" />
     <Compile Include="Models\Furnitures\Furniture.cs" />
@@ -142,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Models\ClassDiagram1.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

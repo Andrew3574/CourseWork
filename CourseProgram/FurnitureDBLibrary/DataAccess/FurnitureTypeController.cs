@@ -37,8 +37,12 @@ namespace FurnitureDBLibrary.DataAccess
                             furnitureTypes.Add(new BedroomType(reader.GetString(0), reader.GetDecimal(1)));
                             break;
 
-                        case "гостинная":
+                        case "гостиная":
                             furnitureTypes.Add(new LoungeType(reader.GetString(0), reader.GetDecimal(1)));
+                            break;
+
+                        case "особая":
+                            furnitureTypes.Add(new Specific(reader.GetString(0), reader.GetDecimal(1)));
                             break;
 
                         default:

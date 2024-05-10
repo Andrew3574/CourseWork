@@ -15,7 +15,7 @@ namespace FurnitureDBLibrary.Models.CurrentFurnitures
 
         public override string FurnitureVariety { get { return "Диван"; } }
 
-        public override string TypeName { get { return "Гостинная"; } }
+        public override string TypeName { get { return "Гостиная"; } }
         public override decimal TypeMarkup { get { return (decimal)0.15; } }
         public override string ManufacturerName { get { return "ОАО «Речицадрев»"; } }
         public override decimal ManufacturerMarkup { get { return (decimal)0.05; } }

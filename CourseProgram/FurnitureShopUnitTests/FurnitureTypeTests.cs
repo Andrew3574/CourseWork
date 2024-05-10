@@ -1,5 +1,6 @@
 ﻿using FurnitureDBLibrary.DataAccess;
 using FurnitureDBLibrary.Models;
+using FurnitureDBLibrary.Models.FurnitureTypes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Npgsql.Internal;
 using System;
@@ -9,42 +10,49 @@ namespace FurnitureShopUnitTests
     [TestClass]
     public class FurnitureTypeTests
     {
-        /*private static readonly FurnitureTypeController furnitureTypeController = new FurnitureTypeController();
-        readonly FurnitureTypeController controller = furnitureTypeController;
-        FurnitureType newType = new FurnitureType(5, "Терапевтический", (decimal)0.40);
+        readonly FurnitureTypeController furnitureTypeController = new FurnitureTypeController();
+
+        FurnitureType newFurnitureType = new Specific("Особая", (decimal)0.99);
+
         [TestMethod]
         public void ReadTest()
         {
-            short expectedId = 1;
-            short actualId = controller.Read()[0].TypeId;
-            Assert.AreEqual(expectedId, actualId);
+            furnitureTypeController.Create(newFurnitureType);
+            FurnitureType furnitureType = furnitureTypeController.Read().Find(type => type.TypeName == "Особая");
+            decimal expectedMarkup = (decimal)0.99;
+            Assert.AreEqual(expectedMarkup, furnitureType.TypeMarkup);
+            furnitureTypeController.Delete(newFurnitureType);
+            
         }
 
         [TestMethod]
         public void Createtest()
-        {            
-            controller.Create(newType);
-            controller.Delete(newType);
+        {
+            furnitureTypeController.Create(newFurnitureType);
+            furnitureTypeController.Delete(newFurnitureType);
         }
 
         [TestMethod]
         public void Updatetest()
         {
-            controller.Create(newType);
-            newType = new FurnitureType(5, "Терапевтический", (decimal)0.50);
-            controller.Update(newType);
-            decimal expectedMarkup = (decimal)0.50;
-            decimal actualMarkup = controller.Read()[4].TypeMarkup;
-            Assert.AreEqual(expectedMarkup, actualMarkup);
-            controller.Delete(newType);
+            furnitureTypeController.Create(newFurnitureType);
+            decimal expectedMarkup = (decimal)1;
+            newFurnitureType.TypeMarkup = (decimal)1;
+
+            furnitureTypeController.Update(newFurnitureType);
+            FurnitureType furnitureType = furnitureTypeController.Read().Find(type => type.TypeName == "Особая");
+            Assert.AreEqual(expectedMarkup, furnitureType.TypeMarkup);
+            furnitureTypeController.Delete(furnitureType);
+                
         }
 
         [TestMethod]
         public void Deletetest()
         {
-            controller.Delete(newType);
+            furnitureTypeController.Create(newFurnitureType);
+            furnitureTypeController.Delete(newFurnitureType);
         }
-*/
-        
+
+
     }
 }

@@ -32,25 +32,25 @@ namespace FurnitureDBLibrary.DataAccess
 
         public override void Create(FurnitureSet model)
         {
-            /*string command = $"insert into furnituresets values ({model.FurnitureSetId});";
+            string command = $"insert into furnituresets values ({model.FurnitureSetName});";
             _command.CommandText = command;
-            _command.ExecuteNonQuery();*/
+            _command.ExecuteNonQuery();
 
         }
 
         public override void Delete(FurnitureSet model)
         {
-           /* string command = $"delete from furnituresets where furnituresetid = {model.FurnitureSetId}";
+            string command = $"delete from furnituresets where furnituresetid = {model.FurnitureSetName}";
             _command.CommandText = command;
-            _command.ExecuteNonQuery();*/
+            _command.ExecuteNonQuery();
 
         }
 
         public override void Update(FurnitureSet model)
         {
-            /*string command = $"update furnituresets set furnituresetname = '{model.FurnitureSetName}' where furnituresetid = {model.FurnitureSetId};";
+            string command = $"update furnituresets set furnituresetname = '{model.FurnitureSetName}' where furnituresetname = {model.FurnitureSetName};";
             _command.CommandText = command;
-            _command.ExecuteNonQuery();*/
+            _command.ExecuteNonQuery();
 
         }
 
