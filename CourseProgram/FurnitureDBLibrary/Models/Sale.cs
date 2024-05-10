@@ -14,7 +14,6 @@ namespace FurnitureDBLibrary.Models
         private string _typeName;
         private int _furnitureSaledQuantity;
         private DateTime _saleDate;
-        private string _setName;
 
         public Sale(string furnitureName, decimal furnitureRetailPrice,string manufacturerName,string typeName, int furnitureSaledQuantity, DateTime saleDate)
         {
@@ -33,7 +32,6 @@ namespace FurnitureDBLibrary.Models
         public string TypeName { get { return _typeName; } }
         public int FurnitureSaledQuantity { get { return _furnitureSaledQuantity; } set { _furnitureSaledQuantity = value; } }
         public DateTime SaleDate { get { return _saleDate; } }
-        public string SetName { get { return _setName; } }
 
         public decimal TotalCost
         {

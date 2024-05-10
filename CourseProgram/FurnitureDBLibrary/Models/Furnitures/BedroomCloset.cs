@@ -15,11 +15,11 @@ namespace FurnitureDBLibrary.Models.CurrentFurnitures
 
         public override string FurnitureVariety { get { return "Шкаф"; } }
 
-        public override string TypeName { get { return "Спальная"; } }
-        public override decimal TypeMarkup { get { return (decimal)0.15; } }
-        public override string ManufacturerName { get { return "ЗАО «Мозырьлес»"; } }
-        public override decimal ManufacturerMarkup { get { return (decimal)0.08; } }
-        public override string FurnitureImage { get { return @"D:\КурсоваяРабота\Images\OakCloset.png"; } }
+        public override string TypeName { get; set; }
+        public override decimal TypeMarkup { get; set; }
+        public override string ManufacturerName { get; set; }
+        public override decimal ManufacturerMarkup { get; set; }
+        public override string FurnitureImage { get; set; }
 
         public override decimal GetRetailPrice()
         {

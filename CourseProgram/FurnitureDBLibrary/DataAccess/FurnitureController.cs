@@ -60,7 +60,13 @@ namespace FurnitureDBLibrary.DataAccess
                                     break;
 
                                 case "офисная":
-                                    furnitures.Add(new OfficeChair(reader.GetString(0), reader.GetDecimal(1), reader.GetInt32(2)));
+                                    Furniture officeChair = new OfficeChair(reader.GetString(0), reader.GetDecimal(1), reader.GetInt32(2));
+                                    officeChair.TypeName = reader.GetString(3);
+                                    officeChair.TypeMarkup = reader.GetDecimal(7);
+                                    officeChair.ManufacturerName = reader.GetString(4);
+                                    officeChair.ManufacturerMarkup = reader.GetDecimal(8);
+                                    officeChair.FurnitureImage = reader.GetString(6);
+                                    furnitures.Add(officeChair);
                                     break;
 
                             }
@@ -71,11 +77,23 @@ namespace FurnitureDBLibrary.DataAccess
                             switch (reader.GetString(3).ToLower())
                             {
                                 case "кухонная":
-                                    furnitures.Add(new KitchenTable(reader.GetString(0), reader.GetDecimal(1), reader.GetInt32(2)));
+                                    Furniture kitchenTable = new KitchenTable(reader.GetString(0), reader.GetDecimal(1), reader.GetInt32(2));
+                                    kitchenTable.TypeName = reader.GetString(3);
+                                    kitchenTable.TypeMarkup = reader.GetDecimal(7);
+                                    kitchenTable.ManufacturerName = reader.GetString(4);
+                                    kitchenTable.ManufacturerMarkup = reader.GetDecimal(8);
+                                    kitchenTable.FurnitureImage = reader.GetString(6);
+                                    furnitures.Add(kitchenTable);
                                     break;
 
                                 case "офисная":
-                                    furnitures.Add(new OfficeTable(reader.GetString(0), reader.GetDecimal(1), reader.GetInt32(2)));
+                                    Furniture officeTable = new OfficeTable(reader.GetString(0), reader.GetDecimal(1), reader.GetInt32(2));
+                                    officeTable.TypeName = reader.GetString(3);
+                                    officeTable.TypeMarkup = reader.GetDecimal(7);
+                                    officeTable.ManufacturerName = reader.GetString(4);
+                                    officeTable.ManufacturerMarkup = reader.GetDecimal(8);
+                                    officeTable.FurnitureImage = reader.GetString(6);
+                                    furnitures.Add(officeTable);
                                     break;
 
                             }
@@ -86,11 +104,23 @@ namespace FurnitureDBLibrary.DataAccess
                             switch (reader.GetString(3).ToLower())
                             {
                                 case "спальная":
-                                    furnitures.Add(new BedroomCloset(reader.GetString(0), reader.GetDecimal(1), reader.GetInt32(2)));
+                                    Furniture bedroomCloset = new BedroomCloset(reader.GetString(0), reader.GetDecimal(1), reader.GetInt32(2));
+                                    bedroomCloset.TypeName = reader.GetString(3);
+                                    bedroomCloset.TypeMarkup = reader.GetDecimal(7);
+                                    bedroomCloset.ManufacturerName = reader.GetString(4);
+                                    bedroomCloset.ManufacturerMarkup = reader.GetDecimal(8);
+                                    bedroomCloset.FurnitureImage = reader.GetString(6);
+                                    furnitures.Add(bedroomCloset);
                                     break;
 
                                 case "офисная":
-                                    furnitures.Add(new OfficeCloset(reader.GetString(0), reader.GetDecimal(1), reader.GetInt32(2)));
+                                    Furniture officeCloset = new OfficeCloset(reader.GetString(0), reader.GetDecimal(1), reader.GetInt32(2));
+                                    officeCloset.TypeName = reader.GetString(3);
+                                    officeCloset.TypeMarkup = reader.GetDecimal(7);
+                                    officeCloset.ManufacturerName = reader.GetString(4);
+                                    officeCloset.ManufacturerMarkup = reader.GetDecimal(8);
+                                    officeCloset.FurnitureImage = reader.GetString(6);
+                                    furnitures.Add(officeCloset);
                                     break;
 
                             }
@@ -101,7 +131,13 @@ namespace FurnitureDBLibrary.DataAccess
                             switch (reader.GetString(3).ToLower())
                             {
                                 case "гостиная":
-                                    furnitures.Add(new LoungeSofa(reader.GetString(0), reader.GetDecimal(1), reader.GetInt32(2)));
+                                    Furniture loungeSofa = new LoungeSofa(reader.GetString(0), reader.GetDecimal(1), reader.GetInt32(2));
+                                    loungeSofa.TypeName = reader.GetString(3);
+                                    loungeSofa.TypeMarkup = reader.GetDecimal(7);
+                                    loungeSofa.ManufacturerName = reader.GetString(4);
+                                    loungeSofa.ManufacturerMarkup = reader.GetDecimal(8);
+                                    loungeSofa.FurnitureImage = reader.GetString(6);
+                                    furnitures.Add(loungeSofa);
                                     break;
 
                             }

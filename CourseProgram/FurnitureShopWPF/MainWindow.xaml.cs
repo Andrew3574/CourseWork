@@ -190,6 +190,7 @@ namespace FurnitureShopWPF
             foreach (Furniture furnitureSetItem in _currentFurnitureSetItems.FurnitureList)
             {
                 _furnitureList.Add(furnitureSetItem);
+                --furnitureSetItem.FurnitureQuantity;
             }
             
         }
@@ -388,6 +389,7 @@ namespace FurnitureShopWPF
         {
             CartWindow cartWindow = new CartWindow(_furnitureList);
             cartWindow.Show();
+            _furnitureList.Clear();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

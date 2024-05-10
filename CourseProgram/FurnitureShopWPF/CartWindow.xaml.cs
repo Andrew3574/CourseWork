@@ -38,7 +38,7 @@ namespace FurnitureShopWPF
             saleList = SaleController.Read();
             InitializeComponent();
             currentSaleList = new List<Sale>();
-            furnitureList = _furnitureList;
+            furnitureList.AddRange(_furnitureList);
             foreach (var item in furnitureList)
             {
                 if (item.FurnitureQuantity > 0)
@@ -83,27 +83,37 @@ namespace FurnitureShopWPF
                 foreach (Sale sale in sales)
                 {
                     var curFurniture = furnitureList.Find(f => f.FurnitureName == sale.FurnitureName);
-                    curFurniture.FurnitureQuantity -= sale.FurnitureSaledQuantity;
-                    FurnitureController.Update(curFurniture);
 
-                    var curSale = saleList.Find(s => s.FurnitureName == sale.FurnitureName && s.SaleDate == sale.SaleDate);
-
-                    if (curSale == null)
+                    if (sale.FurnitureSaledQuantity != 0)
                     {
-                        currentSale = new Sale(sale.FurnitureName, sale.FurnitureRetailPrice, sale.TypeName, sale.ManufacturerName, 1, DateTime.Today);
-                        SaleController.Create(currentSale);
+                        FurnitureController.Update(curFurniture);
+
+                        var curSale = saleList.Find(s => s.FurnitureName == sale.FurnitureName && s.SaleDate == sale.SaleDate);
+
+                        if (curSale == null)
+                        {
+                            currentSale = new Sale(sale.FurnitureName, sale.FurnitureRetailPrice, sale.TypeName, sale.ManufacturerName, 1, DateTime.Today);
+                            SaleController.Create(currentSale);
+                        }
+                        else
+                        {
+                            currentSale = new Sale(sale.FurnitureName, sale.FurnitureRetailPrice, sale.TypeName, sale.ManufacturerName, curSale.FurnitureSaledQuantity + sale.FurnitureSaledQuantity, DateTime.Today);
+                            SaleController.Update(currentSale);
+
+                        }
                     }
                     else
                     {
-                        currentSale = new Sale(sale.FurnitureName, sale.FurnitureRetailPrice, sale.TypeName, sale.ManufacturerName, curSale.FurnitureSaledQuantity + 1, DateTime.Today);
-                        SaleController.Update(currentSale);
-
+                        continue;
                     }
+
                 }
-                
+
+                MessageBox.Show("Покупка успешно завершена");
+
             }
             else
-                MessageBox.Show("Список покупок пуст");
+                MessageBox.Show("Корзина покупок пуста");
         }
 
         private void CartDisplay_SelectionChanged(object sender, SelectionChangedEventArgs e)

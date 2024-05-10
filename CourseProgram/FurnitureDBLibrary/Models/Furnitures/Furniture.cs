@@ -36,7 +36,7 @@ namespace FurnitureDBLibrary.Models
         public abstract decimal TypeMarkup { get; set; }
         public abstract string ManufacturerName { get; set; }
         public abstract decimal ManufacturerMarkup { get; set; }
-        public abstract string FurnitureVariety { get; set; }
+        public abstract string FurnitureVariety { get; }
         public abstract string FurnitureImage { get; set; }
 
         public abstract decimal GetRetailPrice();

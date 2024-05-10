@@ -15,12 +15,12 @@ namespace FurnitureDBLibrary.Models.CurrentFurnitures
 
         public override string FurnitureVariety { get { return "Стол"; } }
 
-        public override string TypeName { get { return "Офисная"; } }
-        public override decimal TypeMarkup { get { return (decimal)0.10; } }
-        public override string ManufacturerName { get { return "ОАО «Речицадрев»"; } }
-        public override decimal ManufacturerMarkup { get { return (decimal)0.06; } }
 
-        public override string FurnitureImage { get { return @"D:\КурсоваяРабота\Images\OfficeTable.png"; } }
+        public override string TypeName { get; set; }
+        public override decimal TypeMarkup { get; set; }
+        public override string ManufacturerName { get; set; }
+        public override decimal ManufacturerMarkup { get; set; }
+        public override string FurnitureImage { get; set; }
 
         public override decimal GetRetailPrice()
         {
